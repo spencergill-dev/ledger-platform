@@ -104,19 +104,19 @@ export function AdvancedFilterDrawer({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-            className="fixed inset-y-0 right-0 z-50 w-full sm:w-[420px] bg-white dark:bg-[#171717] border-l border-slate-200 dark:border-neutral-800 shadow-2xl flex flex-col"
+            className="fixed inset-y-0 right-0 z-50 w-full sm:w-[420px] bg-surface-elevated border-l border-subtle shadow-elevated flex flex-col"
           >
             {/* Drawer Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-neutral-800">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-subtle">
               <div className="flex items-center gap-2.5">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400">
                   <SlidersHorizontal className="h-4 w-4" />
                 </div>
                 <div>
-                  <h2 className="text-sm font-bold text-slate-900 dark:text-white">
+                  <h2 className="text-sm font-bold text-content-primary">
                     Advanced Filters
                   </h2>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  <p className="text-[11px] text-content-muted">
                     Showing {matchCount} of {totalCount} commitments
                   </p>
                 </div>
@@ -265,11 +265,11 @@ export function AdvancedFilterDrawer({
             </div>
 
             {/* Drawer Footer with Actions */}
-            <div className="p-4 border-t border-slate-200 dark:border-neutral-800 bg-slate-50/80 dark:bg-neutral-900/60 flex items-center justify-between gap-3">
+            <div className="p-4 border-t border-subtle bg-surface-muted/60 flex items-center justify-between gap-3">
               <button
                 type="button"
                 onClick={onResetAll}
-                className="px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="px-3 py-2 text-xs font-medium text-content-muted hover:text-content-primary transition-colors"
               >
                 Clear Filters
               </button>

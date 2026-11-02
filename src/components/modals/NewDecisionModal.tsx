@@ -90,15 +90,15 @@ export function NewDecisionModal({ isOpen, onClose, onAddDecision }: NewDecision
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.98, y: 6 }}
           transition={{ duration: 0.12, ease: 'easeOut' }}
-          className="relative w-full max-w-xl overflow-hidden rounded-lg border border-black/[0.06] dark:border-white/[0.08] bg-white dark:bg-[#171717] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.05),0_8px_24px_rgba(0,0,0,0.04)] z-10"
+          className="relative w-full max-w-xl overflow-hidden rounded-lg border border-subtle bg-surface-elevated p-6 shadow-elevated z-10"
         >
           {/* Header */}
-          <div className="flex items-start justify-between pb-3.5 border-b border-black/[0.05] dark:border-white/[0.06]">
+          <div className="flex items-start justify-between pb-3.5 border-b border-border-muted">
             <div>
-              <h2 className="text-base font-semibold tracking-tight text-gray-900 dark:text-white font-sans">
+              <h2 className="text-base font-semibold tracking-tight text-content-primary font-sans">
                 Record Strategic Decision
               </h2>
-              <p className="mt-1 text-xs text-gray-500 font-sans">
+              <p className="mt-1 text-xs text-content-muted font-sans">
                 Record an irreversible corporate bet. Creates an immutable snapshot for retrospective audit.
               </p>
             </div>

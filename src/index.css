@@ -17,54 +17,97 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;          /* #FAFAFA - Bespoke warm-neutral off-white */
-    --foreground: 220 20% 10%;       /* #14171F - Deep ink */
-    --card: 0 0% 100%;               /* #FFFFFF - Pure solid white */
-    --card-foreground: 220 20% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
-    --primary: 220 20% 10%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;           /* #F5F5F5 */
-    --secondary-foreground: 220 20% 10%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 220 9% 46%;  /* #6E7681 */
-    --accent: 0 0% 95%;
-    --accent-foreground: 220 20% 10%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 0% / 0.06;        /* Translucent border: border-black/[0.06] */
-    --input: 0 0% 0% / 0.06;
-    --ring: 220 20% 10%;
-    --radius: 0.5rem;
+    /* Surface & Canvas Tokens */
+    --surface-page: #F8FAFC;        /* slate-50 canvas */
+    --surface-card: #FFFFFF;        /* primary card / table container */
+    --surface-card-hover: #F8FAFC;  /* row hover */
+    --surface-elevated: #FFFFFF;    /* slide drawer / modal / popover */
+    --surface-subtle: #F8FAFC;      /* nested item cards */
+    --surface-muted: #F1F5F9;       /* inputs / inactive chips (slate-100) */
+    --surface-hover: rgba(15, 23, 42, 0.03);
+
+    /* Border & Divider Tokens */
+    --border-subtle: #E2E8F0;       /* slate-200 */
+    --border-muted: #F1F5F9;        /* slate-100 */
+    --border-strong: #CBD5E1;       /* slate-300 */
+
+    /* Typography / Content Hierarchy Tokens */
+    --text-primary: #0F172A;        /* slate-900 heading & active text */
+    --text-secondary: #334155;      /* slate-700 readable body */
+    --text-muted: #64748B;          /* slate-500 secondary labels */
+    --text-faint: #94A3B8;          /* slate-400 kickers & table headers */
+
+    /* Semantic Status Tokens */
+    --status-overdue-text: #B91C1C;
+    --status-overdue-bg: #FEF2F2;
+    --status-overdue-border: rgba(254, 202, 202, 0.8);
+    --status-overdue-dot: #EF4444;
+
+    --status-inprogress-text: #1E40AF;
+    --status-inprogress-bg: #EFF6FF;
+    --status-inprogress-border: rgba(191, 219, 254, 0.8);
+    --status-inprogress-dot: #3B82F6;
+
+    --status-approved-text: #065F46;
+    --status-approved-bg: #ECFDF5;
+    --status-approved-border: rgba(167, 243, 208, 0.8);
+    --status-approved-dot: #10B981;
+
+    --status-reviewed-text: #5B21B6;
+    --status-reviewed-bg: #F5F3FF;
+    --status-reviewed-border: rgba(221, 214, 254, 0.8);
+    --status-reviewed-dot: #8B5CF6;
+
+    --radius: 0.375rem;
   }
 
   .dark {
-    --background: 0 0% 4%;           /* #0A0A0A */
-    --foreground: 0 0% 93%;          /* #EDEDED */
-    --card: 0 0% 9%;                 /* #171717 */
-    --card-foreground: 0 0% 93%;
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 93%;
-    --primary: 0 0% 93%;
-    --primary-foreground: 0 0% 4%;
-    --secondary: 0 0% 14%;           /* #242424 */
-    --secondary-foreground: 0 0% 93%;
-    --muted: 0 0% 14%;
-    --muted-foreground: 0 0% 63%;    /* #A1A1A1 */
-    --accent: 0 0% 16%;
-    --accent-foreground: 0 0% 93%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 100% / 0.08;      /* Translucent border: border-white/[0.08] */
-    --input: 0 0% 100% / 0.08;
-    --ring: 0 0% 93%;
+    /* Surface & Canvas Tokens */
+    --surface-page: #0A0A0A;        /* deep black canvas */
+    --surface-card: #171717;        /* neutral-900 card surface */
+    --surface-card-hover: #1F1F1F;  /* dark row hover */
+    --surface-elevated: #141414;    /* slide drawer / modal */
+    --surface-subtle: #1A1A1A;      /* nested card well */
+    --surface-muted: #262626;       /* neutral-800 chips / inputs */
+    --surface-hover: rgba(255, 255, 255, 0.03);
+
+    /* Border & Divider Tokens */
+    --border-subtle: #262626;       /* neutral-800 */
+    --border-muted: #1F1F1F;        /* neutral-850 */
+    --border-strong: #404040;       /* neutral-700 */
+
+    /* Typography / Content Hierarchy Tokens */
+    --text-primary: #FFFFFF;        /* pure white */
+    --text-secondary: #E2E8F0;      /* slate-200 */
+    --text-muted: #94A3B8;          /* slate-400 */
+    --text-faint: #737373;          /* neutral-500 */
+
+    /* Semantic Status Tokens */
+    --status-overdue-text: #FCA5A5;
+    --status-overdue-bg: rgba(69, 10, 10, 0.4);
+    --status-overdue-border: rgba(153, 27, 27, 0.6);
+    --status-overdue-dot: #EF4444;
+
+    --status-inprogress-text: #93C5FD;
+    --status-inprogress-bg: rgba(23, 37, 84, 0.4);
+    --status-inprogress-border: rgba(30, 58, 138, 0.6);
+    --status-inprogress-dot: #3B82F6;
+
+    --status-approved-text: #6EE7B7;
+    --status-approved-bg: rgba(6, 78, 59, 0.4);
+    --status-approved-border: rgba(6, 95, 70, 0.6);
+    --status-approved-dot: #10B981;
+
+    --status-reviewed-text: #C4B5FD;
+    --status-reviewed-bg: rgba(76, 29, 149, 0.4);
+    --status-reviewed-border: rgba(91, 33, 182, 0.6);
+    --status-reviewed-dot: #8B5CF6;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: var(--border-subtle);
   }
   html, body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -72,7 +115,9 @@
     -moz-osx-font-smoothing: grayscale;
   }
   body {
-    @apply bg-slate-50 dark:bg-[#0A0A0A] text-foreground min-h-screen;
+    background-color: var(--surface-page);
+    color: var(--text-primary);
+    min-height: 100vh;
   }
 
   .dark body {

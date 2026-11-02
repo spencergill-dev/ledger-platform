@@ -67,12 +67,12 @@ export function DecisionDeepDiveModal({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.98, y: 10 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="relative w-full max-w-5xl bg-white dark:bg-[#151515] rounded-2xl border border-gray-200 dark:border-neutral-800 shadow-2xl overflow-hidden text-gray-900 dark:text-gray-100 my-8"
+              className="relative w-full max-w-5xl bg-surface-elevated rounded-2xl border border-subtle shadow-elevated overflow-hidden text-content-primary my-8"
               role="dialog"
               aria-modal="true"
             >
               {/* Top Bar with Audit Breadcrumb & Actions */}
-              <div className="px-6 py-4 border-b border-gray-200 dark:border-neutral-800 bg-gray-50/70 dark:bg-neutral-900/60 flex items-center justify-between gap-4">
+              <div className="px-6 py-4 border-b border-subtle bg-surface-muted/50 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <button
                     onClick={onClose}
@@ -164,7 +164,7 @@ export function DecisionDeepDiveModal({
 
                 {/* Top Metrics Cards: Capital & Time at Risk */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="p-5 rounded-xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] shadow-xs space-y-1">
+                  <div className="p-5 rounded-xl border border-subtle bg-surface-subtle shadow-xs space-y-1">
                     <span className="text-xs font-medium text-gray-500">Capital Allocation</span>
                     <div className="text-2xl font-bold text-gray-900 dark:text-white font-cal">
                       {formatCurrency(decision.originalEstimates.capitalAtRisk)}
@@ -174,7 +174,7 @@ export function DecisionDeepDiveModal({
                     </p>
                   </div>
 
-                  <div className="p-5 rounded-xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] shadow-xs space-y-1">
+                  <div className="p-5 rounded-xl border border-subtle bg-surface-subtle shadow-xs space-y-1">
                     <span className="text-xs font-medium text-gray-500">
                       Time Allocation
                     </span>
@@ -193,7 +193,7 @@ export function DecisionDeepDiveModal({
                     )}
                   </div>
 
-                  <div className="p-5 rounded-xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] shadow-xs space-y-1">
+                  <div className="p-5 rounded-xl border border-subtle bg-surface-subtle shadow-xs space-y-1">
                     <span className="text-xs font-medium text-gray-500">Primary Benchmark Target</span>
                     <div className="text-xl font-bold text-emerald-700 dark:text-emerald-400 font-cal">
                       {decision.originalEstimates.targetMetricValue}
@@ -228,7 +228,7 @@ export function DecisionDeepDiveModal({
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {decision.alternativesConsidered && decision.alternativesConsidered.length > 0 ? (
                       decision.alternativesConsidered.map((alt, idx) => (
-                        <div key={idx} className="p-4 rounded-xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] shadow-xs space-y-2">
+                        <div key={idx} className="p-4 rounded-xl border border-subtle bg-surface-subtle shadow-xs space-y-2">
                           <div className="flex items-center justify-between font-semibold text-xs text-gray-900 dark:text-white">
                             <span>Alternative {idx + 1}: {alt.title}</span>
                             <span className="text-gray-500 font-mono text-[11px]">
@@ -247,7 +247,7 @@ export function DecisionDeepDiveModal({
                 </div>
 
                 {/* Section 3: Retrospective Audit Status */}
-                <div className="p-6 rounded-xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] shadow-xs space-y-4">
+                <div className="p-6 rounded-xl border border-subtle bg-surface-subtle shadow-xs space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white">
                       <Clock className="h-4 w-4 text-gray-500" />

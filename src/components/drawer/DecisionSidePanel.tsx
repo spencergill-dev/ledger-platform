@@ -185,14 +185,14 @@ export function DecisionSidePanel({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[520px] md:w-[600px] lg:w-[46%] min-w-[390px] max-w-[760px] bg-white dark:bg-[#141414] border-l border-slate-200 dark:border-neutral-800 shadow-none rounded-none flex flex-col h-full overflow-hidden text-slate-900 dark:text-slate-100"
+            className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[520px] md:w-[600px] lg:w-[46%] min-w-[390px] max-w-[760px] bg-surface-elevated border-l border-subtle shadow-none rounded-none flex flex-col h-full overflow-hidden text-content-primary"
             role="dialog"
             aria-label={`${decision.id} Ledger Details`}
           >
             {/* Header Toolbar */}
-            <div className="shrink-0 px-5 sm:px-6 py-3.5 border-b border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#141414] flex items-center justify-between gap-3">
+            <div className="shrink-0 px-5 sm:px-6 py-3.5 border-b border-subtle bg-surface-elevated flex items-center justify-between gap-3">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-mono text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-neutral-800 px-2 py-0.5 rounded border border-slate-200 dark:border-neutral-700">
+                <span className="font-mono text-xs font-semibold text-content-secondary bg-surface-muted px-2 py-0.5 rounded border border-subtle">
                   {decision.id}
                 </span>
                 <span className={cn(
@@ -257,7 +257,7 @@ export function DecisionSidePanel({
               {/* Dual-Resource Allocation Metric Cards */}
               <div className="grid grid-cols-2 gap-3">
                 {/* Pillar 1: Capital Allocation */}
-                <div className="p-3.5 rounded-md border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] shadow-2xs space-y-1">
+                <div className="p-3.5 rounded-md border border-subtle bg-surface-subtle shadow-2xs space-y-1">
                   <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium font-sans">
                     <span>Capital Allocation</span>
                     <DollarSign className="h-4 w-4 text-slate-400" />
@@ -271,7 +271,7 @@ export function DecisionSidePanel({
                 </div>
 
                 {/* Pillar 2: Time Allocation */}
-                <div className="p-3.5 rounded-md border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] shadow-2xs space-y-1">
+                <div className="p-3.5 rounded-md border border-subtle bg-surface-subtle shadow-2xs space-y-1">
                   <div className="flex items-center justify-between text-xs font-medium text-slate-500 dark:text-slate-400 font-sans">
                     <span>Time Horizon</span>
                     <Clock className="h-4 w-4 text-slate-400" />
@@ -417,7 +417,7 @@ export function DecisionSidePanel({
                 {/* Explicit Comparative Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {/* Capital Variance Card */}
-                  <div className="p-3.5 rounded-md border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] space-y-1.5 shadow-2xs">
+                  <div className="p-3.5 rounded-md border border-subtle bg-surface-subtle space-y-1.5 shadow-2xs">
                     <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
                       <span>Capital Investment</span>
                       <DollarSign className="h-4 w-4 text-slate-400" />
@@ -453,7 +453,7 @@ export function DecisionSidePanel({
                   </div>
 
                   {/* Time Horizon Variance Card */}
-                  <div className="p-3.5 rounded-md border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] space-y-1.5 shadow-2xs">
+                  <div className="p-3.5 rounded-md border border-subtle bg-surface-subtle space-y-1.5 shadow-2xs">
                     <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
                       <span>Time Horizon</span>
                       <Clock className="h-4 w-4 text-slate-400" />
@@ -521,7 +521,7 @@ export function DecisionSidePanel({
                 </div>
 
                 {/* Primary Sponsor Card */}
-                <div className="p-3 rounded-md border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] flex items-center justify-between gap-3 shadow-2xs">
+                <div className="p-3 rounded-md border border-subtle bg-surface-subtle flex items-center justify-between gap-3 shadow-2xs">
                   <div className="flex items-center gap-2.5">
                     <div className={cn(
                       "flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white shrink-0",
@@ -561,7 +561,7 @@ export function DecisionSidePanel({
                     return (
                       <div
                         key={stk.id}
-                        className="p-3 rounded-md border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] space-y-2 shadow-2xs"
+                        className="p-3 rounded-md border border-subtle bg-surface-subtle space-y-2 shadow-2xs"
                       >
                         <div className="flex items-center justify-between gap-2">
                           <div className="flex items-center gap-2">

@@ -8,41 +8,100 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        // Semantic Surface / Canvas Tokens
+        surface: {
+          page: 'var(--surface-page)',
+          DEFAULT: 'var(--surface-card)',
+          card: 'var(--surface-card)',
+          elevated: 'var(--surface-elevated)',
+          subtle: 'var(--surface-subtle)',
+          muted: 'var(--surface-muted)',
+          hover: 'var(--surface-hover)',
+        },
+
+        // Semantic Border Tokens
+        border: {
+          DEFAULT: 'var(--border-subtle)',
+          subtle: 'var(--border-subtle)',
+          muted: 'var(--border-muted)',
+          strong: 'var(--border-strong)',
+        },
+        subtle: 'var(--border-subtle)',
+
+        // Semantic Typography / Content Tokens
+        content: {
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          muted: 'var(--text-muted)',
+          faint: 'var(--text-faint)',
+        },
+
+        // Semantic Status Tokens
+        status: {
+          overdue: {
+            text: 'var(--status-overdue-text)',
+            bg: 'var(--status-overdue-bg)',
+            border: 'var(--status-overdue-border)',
+            dot: 'var(--status-overdue-dot)',
+          },
+          inprogress: {
+            text: 'var(--status-inprogress-text)',
+            bg: 'var(--status-inprogress-bg)',
+            border: 'var(--status-inprogress-border)',
+            dot: 'var(--status-inprogress-dot)',
+          },
+          approved: {
+            text: 'var(--status-approved-text)',
+            bg: 'var(--status-approved-bg)',
+            border: 'var(--status-approved-border)',
+            dot: 'var(--status-approved-dot)',
+          },
+          reviewed: {
+            text: 'var(--status-reviewed-text)',
+            bg: 'var(--status-reviewed-bg)',
+            border: 'var(--status-reviewed-border)',
+            dot: 'var(--status-reviewed-dot)',
+          },
+        },
+
+        // Core / Compatibility Tokens
+        background: 'var(--surface-page)',
+        foreground: 'var(--text-primary)',
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+          DEFAULT: 'var(--surface-card)',
+          foreground: 'var(--text-primary)',
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
+          DEFAULT: 'var(--surface-elevated)',
+          foreground: 'var(--text-primary)',
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: 'var(--text-primary)',
+          foreground: 'var(--surface-card)',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: 'var(--surface-muted)',
+          foreground: 'var(--text-primary)',
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+          DEFAULT: 'var(--surface-muted)',
+          foreground: 'var(--text-muted)',
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
+          DEFAULT: 'var(--surface-subtle)',
+          foreground: 'var(--text-primary)',
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+          DEFAULT: 'var(--status-overdue-text)',
+          foreground: '#FFFFFF',
         },
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
+        input: 'var(--border-subtle)',
+        ring: 'var(--text-primary)',
       },
       borderRadius: {
+        card: '0.375rem',
+        badge: '0.375rem',
+        button: '0.375rem',
         lg: '0.5rem',
         md: '0.375rem',
         sm: '0.25rem',
@@ -54,6 +113,10 @@ export default {
         cal: ['"Cal Sans"', 'Inter', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
+        '2xs': '0 1px 2px rgba(0, 0, 0, 0.04)',
+        'xs': '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03)',
+        'card': '0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.02)',
+        'elevated': '0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)',
         'bespoke': '0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.03)',
         'bespoke-elevated': '0 1px 3px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.04)',
         'subtle-inner': 'inset 0 1px 2px rgba(0, 0, 0, 0.03)',

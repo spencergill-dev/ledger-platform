@@ -58,7 +58,7 @@ export function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0A0A0A] text-foreground flex flex-col antialiased font-sans">
+    <div className="min-h-screen bg-surface-page text-content-primary flex flex-col antialiased font-sans">
       {/* Solid Top Bar Header */}
       <Header
         onOpenNewDecision={() => setIsModalOpen(true)}
@@ -71,17 +71,17 @@ export function App() {
       />
 
       {/* Main Icy Canvas Wrapper */}
-      <div className="flex-1 bg-slate-50 dark:bg-[#0A0A0A] w-full">
+      <div className="flex-1 bg-surface-page w-full">
         <main className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-7 pb-12 space-y-6">
         
         {/* Title Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-medium mb-1">
+            <div className="font-mono text-[10px] uppercase tracking-wider text-content-muted font-medium mb-1">
               PORTFOLIO GOVERNANCE // AUDIT LEDGER
             </div>
             <div className="flex items-center gap-2.5">
-              <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-cal">
+              <h1 className="text-xl sm:text-2xl font-bold text-content-primary font-cal">
                 Strategic Decisions Feed
               </h1>
               <Tooltip content="All hypotheses, metrics, and counterfactuals are cryptographically timestamped and immutable">
@@ -94,7 +94,7 @@ export function App() {
 
           <div className="hidden sm:block text-xs font-sans shrink-0">
             <Tooltip content="Automated 6-month retrospective cadence requiring executive sign-off on metric variance">
-              <span className="inline-flex items-center rounded-md border border-slate-200 dark:border-neutral-700 bg-white dark:bg-[#171717] px-3 py-1.5 font-medium text-slate-800 dark:text-slate-200 shadow-2xs">
+              <span className="inline-flex items-center rounded-md border border-subtle bg-surface px-3 py-1.5 font-medium text-content-secondary shadow-2xs">
                 Forced Retrospective Protocol v2.4
               </span>
             </Tooltip>
@@ -112,7 +112,7 @@ export function App() {
         {/* Main Decisions Ledger Table */}
         <section className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="font-mono text-[10px] font-semibold tracking-wider text-slate-500 dark:text-slate-400 uppercase">
+            <h2 className="font-mono text-[10px] font-semibold tracking-wider text-content-muted uppercase">
               DECISIONS LEDGER ({decisions.length} RECORDED COMMITMENTS)
             </h2>
           </div>
@@ -150,14 +150,14 @@ export function App() {
       />
 
       {/* Bespoke Footer */}
-      <footer className="mt-auto border-t border-gray-200 dark:border-neutral-800 py-6 text-xs text-gray-500 bg-white dark:bg-[#171717] transition-colors">
+      <footer className="mt-auto border-t border-subtle py-6 text-xs text-content-muted bg-surface transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="font-bold tracking-tight text-gray-900 dark:text-white">Praxus</span>
+            <span className="font-bold tracking-tight text-content-primary">Praxus</span>
             <span>—</span>
             <span>Strategic Intelligence Platform</span>
           </div>
-          <div className="text-gray-500 font-sans">
+          <div className="text-content-muted font-sans">
             No Transient Tasks • Immutable Snapshots • Automated Retrospectives
           </div>
         </div>

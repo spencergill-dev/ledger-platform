@@ -164,25 +164,25 @@ export function DecisionTable({
   return (
     <div className="w-full">
       {/* Unified Block: Merged Toolbar & Table into a single continuous container */}
-      <div className="w-full rounded-md border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#171717] overflow-hidden transition-colors shadow-2xs">
+      <div className="w-full rounded-md border border-subtle bg-surface overflow-hidden transition-colors shadow-2xs">
         
         {/* Flush Top Search & Filter Toolbar */}
-        <div className="p-3 sm:p-3.5 border-b border-slate-200 dark:border-neutral-800 flex items-center gap-2 overflow-x-auto bg-white dark:bg-[#171717]">
+        <div className="p-3 sm:p-3.5 border-b border-subtle flex items-center gap-2 overflow-x-auto bg-surface">
           {/* Search Input */}
           <div className="relative flex items-center shrink-0 w-44 sm:w-56 md:w-64">
-            <Search className="absolute left-2.5 h-3.5 w-3.5 text-slate-400 pointer-events-none" />
+            <Search className="absolute left-2.5 h-3.5 w-3.5 text-content-faint pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search decisions, owners, hypc"
-              className="w-full h-8 pl-8 pr-2.5 rounded-md border border-slate-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-slate-400 transition-colors font-sans"
+              className="w-full h-8 pl-8 pr-2.5 rounded-md border border-subtle bg-surface-subtle text-xs text-content-primary placeholder:text-content-faint focus:outline-none focus:border-border-strong transition-colors font-sans"
             />
           </div>
 
           {/* Segmented Control Toggle: [ View: Capital Time Both ] */}
-          <div className="h-8 inline-flex items-center gap-1 px-2 rounded-md bg-slate-100/70 dark:bg-neutral-800/60 border border-slate-200/60 dark:border-neutral-700/60 text-xs shrink-0 select-none">
-            <span className="text-slate-400 dark:text-slate-400 font-mono text-[11px] mr-1">
+          <div className="h-8 inline-flex items-center gap-1 px-2 rounded-md bg-surface-muted/60 border border-border-muted text-xs shrink-0 select-none">
+            <span className="text-content-faint font-mono text-[11px] mr-1">
               View:
             </span>
             <button
@@ -191,8 +191,8 @@ export function DecisionTable({
               className={cn(
                 "px-2 py-0.5 rounded text-xs transition-colors font-medium",
                 resourceView === 'capital'
-                  ? "bg-white dark:bg-neutral-900 text-slate-900 dark:text-slate-100 shadow-2xs border border-slate-200/80 dark:border-neutral-700 font-semibold"
-                  : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
+                  ? "bg-surface text-content-primary shadow-2xs border border-subtle font-semibold"
+                  : "text-content-muted hover:text-content-primary"
               )}
             >
               Capital
@@ -203,8 +203,8 @@ export function DecisionTable({
               className={cn(
                 "px-2 py-0.5 rounded text-xs transition-colors font-medium",
                 resourceView === 'time'
-                  ? "bg-white dark:bg-neutral-900 text-slate-900 dark:text-slate-100 shadow-2xs border border-slate-200/80 dark:border-neutral-700 font-semibold"
-                  : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
+                  ? "bg-surface text-content-primary shadow-2xs border border-subtle font-semibold"
+                  : "text-content-muted hover:text-content-primary"
               )}
             >
               Time
@@ -215,8 +215,8 @@ export function DecisionTable({
               className={cn(
                 "px-2.5 py-0.5 rounded text-xs transition-colors font-medium",
                 resourceView === 'both'
-                  ? "bg-white dark:bg-neutral-900 text-slate-900 dark:text-slate-100 shadow-2xs border border-slate-200/80 dark:border-neutral-700 font-semibold"
-                  : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
+                  ? "bg-surface text-content-primary shadow-2xs border border-subtle font-semibold"
+                  : "text-content-muted hover:text-content-primary"
               )}
             >
               Both
@@ -233,23 +233,23 @@ export function DecisionTable({
                 className={cn(
                   "h-8 inline-flex items-center gap-2 px-3 rounded-md border text-xs font-medium transition-colors whitespace-nowrap shadow-2xs select-none",
                   statusFilter !== 'ALL'
-                    ? "bg-slate-50 dark:bg-neutral-800 text-slate-900 dark:text-white border-slate-300 dark:border-neutral-700 font-semibold"
-                    : "bg-white dark:bg-neutral-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-neutral-800 border-slate-200 dark:border-neutral-700"
+                    ? "bg-surface-subtle text-content-primary border-border-strong font-semibold"
+                    : "bg-surface text-content-secondary hover:bg-surface-hover border-subtle"
                 )}
               >
-                <span className="text-slate-400 dark:text-slate-500 font-normal">Status:</span>
-                <div className="flex items-center gap-1.5 font-semibold text-slate-900 dark:text-white">
+                <span className="text-content-faint font-normal">Status:</span>
+                <div className="flex items-center gap-1.5 font-semibold text-content-primary">
                   {statusFilter !== 'ALL' && currentStatusOption.dotColor && (
                     <span className={cn("h-2 w-2 rounded-full shrink-0", currentStatusOption.dotColor)} />
                   )}
                   <span>{currentStatusOption.shortLabel} ({currentStatusOption.count})</span>
                 </div>
-                <ChevronDown className={cn("h-3.5 w-3.5 text-slate-400 transition-transform duration-150", isStatusDropdownOpen && "rotate-180")} />
+                <ChevronDown className={cn("h-3.5 w-3.5 text-content-faint transition-transform duration-150", isStatusDropdownOpen && "rotate-180")} />
               </button>
 
               {isStatusDropdownOpen && (
-                <div className="absolute right-0 mt-1.5 w-56 rounded-md border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] shadow-lg py-1 z-40">
-                  <div className="px-3 py-1.5 text-[10px] font-semibold text-slate-400 dark:text-neutral-500 uppercase tracking-wider border-b border-slate-100 dark:border-neutral-800">
+                <div className="absolute right-0 mt-1.5 w-56 rounded-md border border-subtle bg-surface-elevated shadow-elevated py-1 z-40">
+                  <div className="px-3 py-1.5 text-[10px] font-semibold text-content-faint uppercase tracking-wider border-b border-border-muted">
                     Filter by Lifecycle Status
                   </div>
                   <div className="py-1">
@@ -321,16 +321,16 @@ export function DecisionTable({
         <div className="w-full overflow-x-hidden">
           <table className="w-full text-left text-xs border-collapse table-fixed">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-neutral-800 bg-slate-50/80 dark:bg-neutral-900/60">
-                <th className="py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-800 dark:text-slate-100 w-[36%] text-left">
+              <tr className="border-b border-subtle bg-surface-muted/50">
+                <th className="py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary w-[36%] text-left">
                   DECISION & HYPOTHESIS
                 </th>
-                <th className="py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-800 dark:text-slate-100 w-[18%] text-left">
+                <th className="py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary w-[18%] text-left">
                   OWNER & STAKEHOLDERS
                 </th>
                 {showCapital && (
                   <th className={cn(
-                    "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-800 dark:text-slate-100 text-left whitespace-nowrap",
+                    "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-left whitespace-nowrap",
                     resourceView === 'both' ? "w-[16%]" : "w-[24%]"
                   )}>
                     CAPITAL INVESTMENT
@@ -338,14 +338,14 @@ export function DecisionTable({
                 )}
                 {showTime && (
                   <th className={cn(
-                    "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-800 dark:text-slate-100 text-left whitespace-nowrap",
+                    "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-left whitespace-nowrap",
                     resourceView === 'both' ? "w-[16%]" : "w-[24%]"
                   )}>
                     TIME INVESTMENT
                   </th>
                 )}
                 <th className={cn(
-                  "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-800 dark:text-slate-100 text-right",
+                    "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-right",
                   resourceView === 'both' ? "w-[14%]" : "w-[22%]"
                 )}>
                   STATUS
@@ -353,10 +353,10 @@ export function DecisionTable({
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-slate-100 dark:divide-neutral-800/80">
+            <tbody className="divide-y divide-border-muted">
               {filteredDecisions.length === 0 ? (
                 <tr>
-                  <td colSpan={colCount} className="py-12 text-center text-slate-500 dark:text-slate-400">
+                  <td colSpan={colCount} className="py-12 text-center text-content-muted">
                     <p className="text-sm font-medium tracking-tight font-sans">No decisions match the selected filter.</p>
                     <button
                       onClick={resetAllFilters}
@@ -380,10 +380,10 @@ export function DecisionTable({
                         onSelectDecision?.(decision);
                       }}
                       className={cn(
-                        "group cursor-pointer transition-colors border-b border-slate-100 dark:border-neutral-800/80 last:border-b-0",
+                        "group cursor-pointer transition-colors border-b border-border-muted last:border-b-0",
                         isSelected
                           ? "bg-blue-50/50 dark:bg-blue-950/20"
-                          : "bg-white dark:bg-[#171717] hover:bg-slate-50/70 dark:hover:bg-white/[0.02]"
+                          : "bg-surface hover:bg-surface-hover"
                       )}
                     >
                       {/* Column 1: Title, Hypothesis & Versioning Badges */}
@@ -392,7 +392,7 @@ export function DecisionTable({
                         isSelected ? "border-l-4 border-blue-600" : "border-l-4 border-l-transparent"
                       )}>
                         <div className="flex items-center gap-2 text-xs flex-wrap">
-                          <span className="font-mono font-medium tracking-normal text-slate-400 dark:text-slate-500 text-xs tabular-nums">
+                          <span className="font-mono font-medium tracking-normal text-content-faint text-xs tabular-nums">
                             {decision.id}
                           </span>
                           
@@ -401,7 +401,7 @@ export function DecisionTable({
                             "inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-sans font-medium uppercase tracking-wide border",
                             decision.version?.toLowerCase().includes('amended')
                               ? "bg-blue-50 text-blue-700 border-blue-200/80 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800/60"
-                              : "bg-slate-100 text-slate-600 border-slate-200/80 dark:bg-neutral-800 dark:text-slate-300 dark:border-neutral-700"
+                              : "bg-surface-muted text-content-muted border-border-muted"
                           )}>
                             {decision.version || 'v1.0 Frozen'}
                           </span>
@@ -416,7 +416,7 @@ export function DecisionTable({
                             decision.category.toLowerCase().includes('market') ? "text-amber-700 dark:text-amber-300" :
                             decision.category.toLowerCase().includes('ai') ? "text-violet-700 dark:text-violet-300" :
                             decision.category.toLowerCase().includes('security') ? "text-rose-700 dark:text-rose-300" :
-                            "text-slate-600 dark:text-slate-300"
+                            "text-content-secondary"
                           )}>
                             <span className={cn(
                               "h-1.5 w-1.5 rounded-full shrink-0",
@@ -426,15 +426,15 @@ export function DecisionTable({
                               decision.category.toLowerCase().includes('market') ? "bg-amber-500" :
                               decision.category.toLowerCase().includes('ai') ? "bg-violet-500" :
                               decision.category.toLowerCase().includes('security') ? "bg-rose-500" :
-                              "bg-slate-400"
+                              "bg-content-faint"
                             )} />
                             <span>{decision.category}</span>
                           </span>
                         </div>
-                        <div className="font-semibold text-slate-900 dark:text-white text-sm tracking-tight mt-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1 font-sans">
+                        <div className="font-semibold text-content-primary text-sm tracking-tight mt-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1 font-sans">
                           {decision.title}
                         </div>
-                        <p className="text-slate-600 dark:text-slate-300/90 text-xs line-clamp-1 mt-0.5 font-normal leading-normal font-sans">
+                        <p className="text-content-secondary text-xs line-clamp-1 mt-0.5 font-normal leading-normal font-sans">
                           {decision.hypothesis}
                         </p>
                       </td>
@@ -453,14 +453,14 @@ export function DecisionTable({
                           </div>
 
                           <div className="min-w-0 flex-1">
-                            <div className="font-semibold text-slate-900 dark:text-white text-sm tracking-tight truncate font-sans">
+                            <div className="font-semibold text-content-primary text-sm tracking-tight truncate font-sans">
                               {decision.owner.name}
                             </div>
-                            <div className="text-xs text-slate-500 dark:text-slate-400 truncate font-sans mt-0.5">
+                            <div className="text-xs text-content-muted truncate font-sans mt-0.5">
                               {decision.owner.role}
                             </div>
 
-                            {/* Stakeholders mini-avatars cluster (muted uniform bg-slate-100 text-slate-500 border-2 border-white with 6px status micro-dots) */}
+                            {/* Stakeholders mini-avatars cluster (muted uniform bg-surface-muted text-content-muted border-2 border-surface with 6px status micro-dots) */}
                             {decision.stakeholders && decision.stakeholders.length > 0 && (
                               <div className="flex items-center -space-x-1 mt-1.5">
                                 {decision.stakeholders.map((stk) => {
@@ -475,12 +475,12 @@ export function DecisionTable({
                                       content={`${stk.name} (${stk.role}) • ${stk.stance.toUpperCase()}: "${stk.rationale}"`}
                                     >
                                       <div className="relative inline-block">
-                                        <div className="flex h-4 w-4 items-center justify-center rounded-full text-[7.5px] font-bold bg-slate-100 text-slate-500 border-2 border-white dark:bg-neutral-800 dark:text-slate-400 dark:border-[#171717] font-sans select-none shadow-2xs">
+                                        <div className="flex h-4 w-4 items-center justify-center rounded-full text-[7.5px] font-bold bg-surface-muted text-content-muted border-2 border-surface font-sans select-none shadow-2xs">
                                           {stk.initials}
                                         </div>
                                         {dotColor && (
                                           <span className={cn(
-                                            "absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full ring-1 ring-white dark:ring-[#171717]",
+                                            "absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full ring-1 ring-surface",
                                             dotColor
                                           )} />
                                         )}
@@ -503,28 +503,28 @@ export function DecisionTable({
                           {hasDrift && decision.actuals ? (
                             <div className="flex flex-col text-left font-sans">
                               {/* Strikethrough Original Baseline */}
-                              <span className="line-through text-slate-400 dark:text-slate-500 text-xs tabular-nums">
+                              <span className="line-through text-content-faint text-xs tabular-nums">
                                 {formatCurrency(decision.originalEstimates.capitalAtRisk)} (Orig)
                               </span>
                               {/* Actual or Amended Value */}
                               <div className="flex items-baseline gap-1 mt-0.5">
-                                <span className="font-semibold text-slate-900 dark:text-white text-sm tabular-nums">
+                                <span className="font-semibold text-content-primary text-sm tabular-nums">
                                   {formatCurrency(decision.actuals.actualCapital)}
                                 </span>
-                                <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 tracking-wider uppercase">
+                                <span className="text-[10px] font-medium text-content-muted tracking-wider uppercase">
                                   ({decision.version?.toLowerCase().includes('amended') && !isOverdue ? 'Amended' : 'Actual'})
                                 </span>
                               </div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums">
+                              <div className="text-xs text-content-muted mt-0.5 tabular-nums">
                                 {decision.actuals.actualPaybackMonths}mo payback
                               </div>
                             </div>
                           ) : (
                             <div className="font-sans">
-                              <div className="font-semibold text-slate-900 dark:text-white text-sm tabular-nums">
+                              <div className="font-semibold text-content-primary text-sm tabular-nums">
                                 {formatCurrency(decision.originalEstimates.capitalAtRisk)}
                               </div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums">
+                              <div className="text-xs text-content-muted mt-0.5 tabular-nums">
                                 {decision.originalEstimates.expectedPaybackMonths}mo payback
                               </div>
                             </div>
@@ -541,28 +541,28 @@ export function DecisionTable({
                           {hasDrift && decision.actuals && isOverdue ? (
                             <div className="flex flex-col text-left font-sans">
                               {/* Strikethrough Original Horizon */}
-                              <span className="line-through text-slate-400 dark:text-slate-500 text-xs tabular-nums">
+                              <span className="line-through text-content-faint text-xs tabular-nums">
                                 {decision.originalEstimates.expectedPaybackMonths}mo Horizon (Orig)
                               </span>
                               {/* Actual Time with Tag */}
                               <div className="flex items-baseline gap-1 mt-0.5">
-                                <span className="font-semibold text-slate-900 dark:text-white text-sm tabular-nums">
+                                <span className="font-semibold text-content-primary text-sm tabular-nums">
                                   {decision.actuals.actualPaybackMonths}mo Horizon
                                 </span>
-                                <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 tracking-wider uppercase">
+                                <span className="text-[10px] font-medium text-content-muted tracking-wider uppercase">
                                   (Actual)
                                 </span>
                               </div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums truncate">
+                              <div className="text-xs text-content-muted mt-0.5 tabular-nums truncate">
                                 Target: {formatDate(decision.targetReviewDate)}
                               </div>
                             </div>
                           ) : (
                             <div className="font-sans">
-                              <div className="font-semibold text-slate-900 dark:text-white text-sm tabular-nums">
+                              <div className="font-semibold text-content-primary text-sm tabular-nums">
                                 {decision.originalEstimates.expectedPaybackMonths}mo Horizon
                               </div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums truncate">
+                              <div className="text-xs text-content-muted mt-0.5 tabular-nums truncate">
                                 Target: {formatDate(decision.targetReviewDate)}
                               </div>
                             </div>
@@ -581,7 +581,7 @@ export function DecisionTable({
                           </Badge>
                           {isOverdue && (
                             <Tooltip content={`Breached 6-month retrospective SLA by ${daysOverdue} days`}>
-                              <span className="inline-flex items-center justify-center w-[104px] h-6 px-2.5 py-0.5 rounded-md text-xs font-medium tabular-nums bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900/60 shrink-0 font-sans shadow-2xs">
+                              <span className="inline-flex items-center justify-center w-[104px] h-6 px-2.5 py-0.5 rounded-badge text-xs font-medium tabular-nums bg-status-overdue-bg text-status-overdue-text border border-status-overdue-border shrink-0 font-sans shadow-2xs">
                                 +{daysOverdue}d Delay
                               </span>
                             </Tooltip>
