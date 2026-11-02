@@ -70,16 +70,6 @@ export function getDepartmentAvatarStyle(role: string = '', category: string = '
   const r = role.toLowerCase();
   const c = category.toLowerCase();
 
-  // Engineering / Infrastructure / Telemetry
-  if (
-    r.includes('infrastructure') || 
-    r.includes('engineer') || 
-    r.includes('devops') || 
-    c.includes('infrastructure')
-  ) {
-    return 'bg-emerald-600 dark:bg-emerald-700 text-white shadow-2xs';
-  }
-
   // Product / Architecture / Core Systems
   if (
     r.includes('product') || 
@@ -89,6 +79,42 @@ export function getDepartmentAvatarStyle(role: string = '', category: string = '
     return 'bg-blue-600 dark:bg-blue-700 text-white shadow-2xs';
   }
 
+  // Engineering / Infrastructure / Technology / Telemetry
+  if (
+    r.includes('infrastructure') || 
+    r.includes('engineer') || 
+    r.includes('devops') || 
+    r.includes('technology') ||
+    c.includes('infrastructure')
+  ) {
+    return 'bg-emerald-600 dark:bg-emerald-700 text-white shadow-2xs';
+  }
+
+  // Security / Compliance / Information / CISO
+  if (
+    r.includes('security') ||
+    r.includes('information') ||
+    r.includes('ciso') ||
+    c.includes('security')
+  ) {
+    return 'bg-purple-600 dark:bg-purple-700 text-white shadow-2xs';
+  }
+
+  // Finance / CFO
+  if (
+    r.includes('finance') ||
+    r.includes('cfo')
+  ) {
+    return 'bg-rose-600 dark:bg-rose-700 text-white shadow-2xs';
+  }
+
   // Executive / Leadership / Strategy / Revenue / Expansion (Default)
   return 'bg-slate-700 dark:bg-slate-600 text-white shadow-2xs';
+}
+
+export function getStakeholderAvatarStyle(stk: { role?: string; avatarColor?: string }): string {
+  if (stk.avatarColor && !stk.avatarColor.includes('slate-200')) {
+    return stk.avatarColor;
+  }
+  return getDepartmentAvatarStyle(stk.role || '');
 }

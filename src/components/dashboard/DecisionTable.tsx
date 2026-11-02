@@ -6,7 +6,10 @@ import {
   formatDate, 
   isPastDate, 
   getDaysOverdue, 
-  cn 
+  cn,
+  getDepartmentAvatarStyle,
+  getStakeholderAvatarStyle,
+  getInitials
 } from '../../lib/utils';
 import { 
   Search, 
@@ -312,41 +315,63 @@ export function DecisionTable({
 
                       {/* Column 2: Owner & Stakeholders */}
                       <td className="py-3.5 px-4 w-[18%] align-middle">
-                        <div>
-                          <div className="font-semibold text-slate-900 dark:text-white text-sm tracking-tight truncate font-sans">
-                            {decision.owner.name}
-                          </div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 truncate font-sans mt-0.5">
-                            {decision.owner.role}
+                        <div className="flex items-start gap-2.5">
+                          {/* Main Owner Profile Avatar */}
+                          <div className={cn(
+                            "flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-bold text-white shrink-0 font-sans mt-0.5 shadow-2xs",
+                            decision.owner.avatarColor && !decision.owner.avatarColor.includes('slate-200')
+                              ? decision.owner.avatarColor
+                              : getDepartmentAvatarStyle(decision.owner.role, decision.category)
+                          )}>
+                            {decision.owner.initials || getInitials(decision.owner.name)}
                           </div>
 
-                          {/* Stakeholders mini-avatars cluster (16px / h-4 w-4) with consensus status dot */}
-                          <div className="flex items-center -space-x-1 mt-1.5">
-                            {decision.stakeholders?.map((stk) => {
-                              const dotColor = 
-                                stk.stance === 'dissent' ? 'bg-red-500' :
-                                stk.stance === 'conditions' ? 'bg-amber-400' :
-                                '';
+                          <div className="min-w-0 flex-1">
+                            <div className="font-semibold text-slate-900 dark:text-white text-sm tracking-tight truncate font-sans">
+                              {decision.owner.name}
+                            </div>
+                            <div className="text-xs text-slate-500 dark:text-slate-400 truncate font-sans mt-0.5">
+                              {decision.owner.role}
+                            </div>
 
-                              return (
-                                <Tooltip 
-                                  key={stk.id} 
-                                  content={`${stk.name} (${stk.role}) • ${stk.stance.toUpperCase()}: "${stk.rationale}"`}
-                                >
-                                  <div className="relative inline-block">
-                                    <div className="flex h-4 w-4 items-center justify-center rounded-full text-[8px] font-bold bg-slate-100 text-slate-600 dark:bg-neutral-800 dark:text-slate-300 ring-1 ring-white dark:ring-[#171717] font-mono select-none">
-                                      {stk.initials}
-                                    </div>
-                                    {dotColor && (
-                                      <span className={cn(
-                                        "absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full ring-1 ring-white dark:ring-[#171717]",
-                                        dotColor
-                                      )} />
-                                    )}
-                                  </div>
-                                </Tooltip>
-                              );
-                            })}
+                            {/* Stakeholders mini-avatars cluster (16px / h-4 w-4) with consensus status dot */}
+                            {decision.stakeholders && decision.stakeholders.length > 0 && (
+                              <div className="flex items-center gap-1.5 mt-1.5">
+                                <div className="flex items-center -space-x-1">
+                                  {decision.stakeholders.map((stk) => {
+                                    const dotColor = 
+                                      stk.stance === 'dissent' ? 'bg-red-500' :
+                                      stk.stance === 'conditions' ? 'bg-amber-400' :
+                                      '';
+
+                                    return (
+                                      <Tooltip 
+                                        key={stk.id} 
+                                        content={`${stk.name} (${stk.role}) • ${stk.stance.toUpperCase()}: "${stk.rationale}"`}
+                                      >
+                                        <div className="relative inline-block">
+                                          <div className={cn(
+                                            "flex h-4 w-4 items-center justify-center rounded-full text-[8px] font-bold text-white ring-1 ring-white dark:ring-[#171717] font-sans select-none shadow-2xs",
+                                            getStakeholderAvatarStyle(stk)
+                                          )}>
+                                            {stk.initials}
+                                          </div>
+                                          {dotColor && (
+                                            <span className={cn(
+                                              "absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full ring-1 ring-white dark:ring-[#171717]",
+                                              dotColor
+                                            )} />
+                                          )}
+                                        </div>
+                                      </Tooltip>
+                                    );
+                                  })}
+                                </div>
+                                <span className="text-[11px] text-slate-500 dark:text-slate-400 font-sans tabular-nums truncate">
+                                  {decision.stakeholders.length} sign-offs
+                                </span>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </td>
