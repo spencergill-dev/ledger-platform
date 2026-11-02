@@ -164,10 +164,10 @@ export function DecisionTable({
   return (
     <div className="w-full">
       {/* Unified Block: Merged Toolbar & Table into a single continuous container */}
-      <div className="w-full rounded-md border border-subtle bg-surface overflow-hidden transition-colors shadow-2xs">
+      <div className="w-full rounded-md border border-subtle bg-surface transition-colors shadow-2xs">
         
-        {/* Flush Top Search & Filter Toolbar */}
-        <div className="p-3 sm:p-3.5 border-b border-subtle flex items-center gap-2 overflow-x-auto bg-surface">
+        {/* Flush Top Search & Filter Toolbar - relative z-30 ensures dropdown overlays table */}
+        <div className="relative z-30 p-3 sm:p-3.5 border-b border-subtle flex items-center gap-2 bg-surface rounded-t-md">
           {/* Search Input */}
           <div className="relative flex items-center shrink-0 w-44 sm:w-56 md:w-64">
             <Search className="absolute left-2.5 h-3.5 w-3.5 text-content-faint pointer-events-none" />
@@ -248,7 +248,7 @@ export function DecisionTable({
               </button>
 
               {isStatusDropdownOpen && (
-                <div className="absolute right-0 mt-1.5 w-56 rounded-md border border-subtle bg-surface-elevated shadow-elevated py-1 z-40">
+                <div className="absolute right-0 mt-1.5 w-56 rounded-md border border-subtle bg-surface-elevated shadow-elevated py-1 z-50">
                   <div className="px-3 py-1.5 text-[10px] font-semibold text-content-faint uppercase tracking-wider border-b border-border-muted">
                     Filter by Lifecycle Status
                   </div>
@@ -266,8 +266,8 @@ export function DecisionTable({
                           className={cn(
                             "w-full flex items-center justify-between px-3 py-2 text-xs transition-colors",
                             isSelected
-                              ? "bg-slate-50 dark:bg-neutral-800/80 font-semibold text-slate-900 dark:text-white"
-                              : "text-slate-700 dark:text-slate-300 hover:bg-slate-50/80 dark:hover:bg-neutral-800/50 font-normal"
+                              ? "bg-surface-subtle font-semibold text-content-primary"
+                              : "text-content-secondary hover:bg-surface-hover font-normal"
                           )}
                         >
                           <div className="flex items-center gap-2">
@@ -278,8 +278,8 @@ export function DecisionTable({
                             <span className={cn(
                               "text-[11px] tabular-nums px-1.5 py-0.2 rounded font-sans",
                               isSelected
-                                ? "bg-slate-200/80 text-slate-800 dark:bg-neutral-700 dark:text-slate-200 font-semibold"
-                                : "text-slate-400 dark:text-slate-500"
+                                ? "bg-surface-muted text-content-primary font-semibold"
+                                : "text-content-faint"
                             )}>
                               {opt.count}
                             </span>
@@ -303,10 +303,10 @@ export function DecisionTable({
                 "h-8 inline-flex items-center gap-1.5 px-3 rounded-md border text-xs font-medium transition-colors whitespace-nowrap shrink-0 shadow-2xs",
                 activeAdvancedCount > 0
                   ? "bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-800 font-semibold"
-                  : "bg-white dark:bg-neutral-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-neutral-800 border-slate-200 dark:border-neutral-700"
+                  : "bg-surface text-content-secondary hover:bg-surface-hover border-subtle"
               )}
             >
-              <SlidersHorizontal className={cn("h-3.5 w-3.5", activeAdvancedCount > 0 ? "text-blue-600" : "text-slate-500")} />
+              <SlidersHorizontal className={cn("h-3.5 w-3.5", activeAdvancedCount > 0 ? "text-blue-600" : "text-content-muted")} />
               <span>Filters</span>
               {activeAdvancedCount > 0 && (
                 <span className="flex h-4 w-4 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white dark:bg-white dark:text-slate-900">
@@ -318,7 +318,7 @@ export function DecisionTable({
         </div>
 
         {/* Flush Table: Fluid width with edge-to-edge layout */}
-        <div className="w-full overflow-x-hidden">
+        <div className="w-full overflow-x-auto rounded-b-md">
           <table className="w-full text-left text-xs border-collapse table-fixed">
             <thead>
               <tr className="border-b border-subtle bg-surface-muted/50">
