@@ -42,7 +42,7 @@ export function PasswordGate({ onUnlock }: PasswordGateProps) {
             <Layers className="h-6 w-6 text-white stroke-[2.2]" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-white">
+            <h1 className="text-2xl font-bold tracking-tight text-white font-cal">
               Praxus
             </h1>
             <p className="text-xs text-slate-400 mt-1">

@@ -39,7 +39,7 @@ export function StatCards({ decisions }: StatCardsProps) {
           </div>
         </Tooltip>
         <div className="mt-2 flex items-baseline gap-2">
-          <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white tabular-nums">
+          <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white tabular-nums font-cal">
             {formatCurrency(totalCapital)}
           </span>
         </div>
@@ -58,7 +58,7 @@ export function StatCards({ decisions }: StatCardsProps) {
         </Tooltip>
         <div className="mt-2 flex items-baseline gap-2">
           <Tooltip content={`${overdueCount} decisions breached their review date by up to ${maxDaysOverdue} days`}>
-            <span className="text-2xl font-bold tracking-tight text-red-600 dark:text-red-400 tabular-nums cursor-help">
+            <span className="text-2xl font-bold tracking-tight text-red-600 dark:text-red-400 tabular-nums cursor-help font-cal">
               {overdueCount > 0 ? `+${maxDaysOverdue}d` : '0d'}
             </span>
           </Tooltip>
@@ -87,10 +87,10 @@ export function StatCards({ decisions }: StatCardsProps) {
           </div>
         </Tooltip>
         <div className="mt-2 flex items-baseline gap-2">
-          <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white tabular-nums">
+          <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white tabular-nums font-cal">
             {activeBets}
           </span>
-          <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">in flight</span>
+          <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white font-cal">in flight</span>
         </div>
         <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           Approved & In Progress executions
@@ -106,7 +106,7 @@ export function StatCards({ decisions }: StatCardsProps) {
           </div>
         </Tooltip>
         <div className="mt-2 flex items-baseline gap-2">
-          <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white tabular-nums">
+          <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white tabular-nums font-cal">
             {reviewedCount}
           </span>
           <Tooltip content="All archived decisions completed rigorous hypothesis vs outcome variance audits">

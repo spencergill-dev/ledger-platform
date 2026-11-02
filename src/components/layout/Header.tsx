@@ -23,7 +23,7 @@ export function Header({ onOpenNewDecision, overdueCount, totalCapital, onLock }
                 <Layers className="h-5 w-5 text-white stroke-[2.2]" />
               </div>
 
-              <span className="text-xl font-bold tracking-tight text-white font-sans">
+              <span className="text-xl font-bold tracking-tight text-white font-cal">
                 Praxus
               </span>
             </div>

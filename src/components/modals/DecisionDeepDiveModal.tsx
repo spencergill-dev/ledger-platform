@@ -135,7 +135,7 @@ export function DecisionDeepDiveModal({
                     )}
                   </div>
 
-                  <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white font-cal">
                     {decision.title}
                   </h1>
 
@@ -166,7 +166,7 @@ export function DecisionDeepDiveModal({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="p-5 rounded-xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] shadow-xs space-y-1">
                     <span className="text-xs font-medium text-gray-500">Capital Allocation</span>
-                    <div className="text-2xl font-bold text-gray-900 dark:text-white tabular-nums">
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white tabular-nums font-cal">
                       {formatCurrency(decision.originalEstimates.capitalAtRisk)}
                     </div>
                     <p className="text-xs text-gray-500">
@@ -178,7 +178,7 @@ export function DecisionDeepDiveModal({
                     <span className="text-xs font-medium text-gray-500">
                       Time Allocation
                     </span>
-                    <div className="text-2xl font-bold text-gray-900 dark:text-white tabular-nums">
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white tabular-nums font-cal">
                       {decision.originalEstimates.expectedPaybackMonths} Months
                     </div>
                     {isOverdue ? (
@@ -195,7 +195,7 @@ export function DecisionDeepDiveModal({
 
                   <div className="p-5 rounded-xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] shadow-xs space-y-1">
                     <span className="text-xs font-medium text-gray-500">Primary Benchmark Target</span>
-                    <div className="text-xl font-bold text-emerald-700 dark:text-emerald-400 tabular-nums">
+                    <div className="text-xl font-bold text-emerald-700 dark:text-emerald-400 tabular-nums font-cal">
                       {decision.originalEstimates.targetMetricValue}
                     </div>
                     <p className="text-xs text-gray-500">

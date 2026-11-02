@@ -50,6 +50,8 @@ export default {
       fontFamily: {
         sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
         mono: ['JetBrains Mono', 'SF Mono', 'Menlo', 'monospace'],
+        display: ['"Cal Sans"', 'Inter', '-apple-system', 'sans-serif'],
+        cal: ['"Cal Sans"', 'Inter', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
         'bespoke': '0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.03)',
