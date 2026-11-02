@@ -95,7 +95,7 @@ export function App() {
           <div className="hidden sm:block text-xs font-sans shrink-0">
             <Tooltip content="Automated 6-month retrospective cadence requiring executive sign-off on metric variance">
               <span className="inline-flex items-center rounded-md border border-subtle bg-surface px-3 py-1.5 font-medium text-content-secondary shadow-2xs">
-                Forced Retrospective Protocol v2.4
+                Automated 6-Month Review Cadence
               </span>
             </Tooltip>
           </div>
@@ -113,7 +113,7 @@ export function App() {
         <section className="space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="font-mono text-[10px] font-semibold tracking-wider text-content-muted uppercase">
-              DECISIONS LEDGER ({decisions.length} RECORDED COMMITMENTS)
+              STRATEGIC DECISIONS LEDGER ({decisions.length} TRACKED COMMITMENTS)
             </h2>
           </div>
 

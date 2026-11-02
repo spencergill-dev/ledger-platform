@@ -49,12 +49,12 @@ export function StatCards({ decisions }: StatCardsProps) {
           </p>
         </div>
 
-        {/* Time at Risk & Overdue Retrospectives Card */}
+        {/* Overdue Retrospectives Card */}
         <div className="p-4 sm:p-5 transition-colors">
           <Tooltip content="Maximum days elapsed beyond the mandatory 6-month retrospective deadline">
             <div className="flex items-center gap-1.5 text-content-secondary text-xs font-medium">
               <Clock className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0" />
-              <span>Time at Risk (Overdue)</span>
+              <span>Overdue Retrospectives</span>
             </div>
           </Tooltip>
           <div className="mt-2 flex items-baseline gap-2">
@@ -74,7 +74,7 @@ export function StatCards({ decisions }: StatCardsProps) {
           </div>
           <p className="mt-1 text-xs text-content-muted font-sans">
             {overdueCount > 0 
-              ? `${overdueCount} decisions breached 6mo SLA horizon` 
+              ? `${overdueCount} decisions past 6-month review deadline` 
               : "All decision reviews in good standing"}
           </p>
         </div>
@@ -91,10 +91,10 @@ export function StatCards({ decisions }: StatCardsProps) {
             <span className="text-2xl font-bold text-content-primary font-cal">
               {activeBets}
             </span>
-            <span className="text-2xl font-bold text-content-primary font-cal">in flight</span>
+            <span className="text-2xl font-bold text-content-primary font-cal">in progress</span>
           </div>
           <p className="mt-1 text-xs text-content-muted font-sans">
-            Approved & In Progress executions
+            Approved commitments currently underway
           </p>
         </div>
 
@@ -103,7 +103,7 @@ export function StatCards({ decisions }: StatCardsProps) {
           <Tooltip content="Decisions that have completed full retrospective analysis and archived their learnings">
             <div className="flex items-center gap-1.5 text-content-secondary text-xs font-medium">
               <ShieldCheck className="h-4 w-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
-              <span>Completed Learnings</span>
+              <span>Reviewed Decisions</span>
             </div>
           </Tooltip>
           <div className="mt-2 flex items-baseline gap-2">
@@ -117,7 +117,7 @@ export function StatCards({ decisions }: StatCardsProps) {
             </Tooltip>
           </div>
           <p className="mt-1 text-xs text-content-muted font-sans">
-            Compounding organizational memory
+            Outcomes audited & lessons archived
           </p>
         </div>
       </div>

@@ -296,15 +296,15 @@ export function DecisionSidePanel({
                 </div>
               </div>
 
-              {/* SECTION: DECISION TRAJECTORY & LIVE TELEMETRY GRAPH */}
+              {/* SECTION: DECISION TRAJECTORY & LIVE PROGRESS */}
               <div className="pt-4 border-t border-slate-200 dark:border-neutral-800 space-y-3">
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1.5 font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono text-[10px]">
                     <TrendingUp className="h-3.5 w-3.5 text-slate-400" />
-                    <span>DECISION TRAJECTORY & TELEMETRY GRAPH</span>
+                    <span>PERFORMANCE & TRAJECTORY TRACKING</span>
                   </div>
                   <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.5 rounded font-semibold">
-                    Live Telemetry Active
+                    Live Tracking Active
                   </span>
                 </div>
 
@@ -908,26 +908,26 @@ export function DecisionSidePanel({
             </div>
 
             {/* Flat Footer Action Bar */}
-            <div className="shrink-0 p-4 border-t border-slate-200 dark:border-neutral-800 bg-slate-50/90 dark:bg-neutral-900/90 flex items-center justify-between gap-3">
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 font-mono">
-                <Lock className="h-3.5 w-3.5 text-slate-400" />
-                <span>Immutable Record • v{decision.version?.split(' ')[0] || '1.0'}</span>
+            <div className="shrink-0 p-4 border-t border-subtle bg-surface-subtle flex items-center justify-between gap-3">
+              <div className="flex items-center gap-1.5 text-[11px] text-content-muted font-mono">
+                <Lock className="h-3.5 w-3.5 text-content-faint" />
+                <span>Immutable Record • {decision.version ? (decision.version.startsWith('v') ? decision.version.split(' ')[0] : `v${decision.version.split(' ')[0]}`) : 'v1.0'}</span>
               </div>
 
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-3 py-1.5 rounded-md text-xs font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 hover:bg-slate-50 transition-colors shadow-2xs"
+                  className="px-3 py-1.5 rounded-md text-xs font-medium text-content-secondary bg-surface border border-subtle hover:bg-surface-hover transition-colors shadow-2xs cursor-pointer"
                 >
                   Close (Esc)
                 </button>
                 <button
                   type="button"
                   onClick={() => onOpenDeepDive(decision)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors shadow-2xs"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
                 >
-                  <span>Open Audit Modal</span>
+                  <span>Open Audit Dossier</span>
                   <ArrowRight className="h-3 w-3" />
                 </button>
               </div>
