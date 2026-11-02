@@ -816,22 +816,29 @@ export function DecisionTable({
                               {decision.owner.role}
                             </div>
 
-                            {/* Stakeholders mini-avatars cluster (muted uniform bg-surface-muted text-content-muted border-2 border-surface with 6px status micro-dots) */}
+                            {/* Stakeholders mini-avatars cluster (spread out, borderless, with tooltips) */}
                             {decision.stakeholders && decision.stakeholders.length > 0 && (
-                              <div className="flex items-center -space-x-1 mt-1.5">
+                              <div className="flex items-center gap-1.5 mt-1.5">
                                 {decision.stakeholders.map((stk) => {
                                   const dotColor = 
                                     stk.stance === 'dissent' ? 'bg-red-500' :
                                     stk.stance === 'conditions' ? 'bg-amber-500' :
                                     '';
 
+                                  const tooltipLabel = stk.stance === 'support'
+                                    ? `${stk.name} (${stk.role})`
+                                    : `${stk.name} (${stk.role}) • ${stk.stance.toUpperCase()}: "${stk.rationale}"`;
+
                                   return (
                                     <Tooltip 
                                       key={stk.id} 
-                                      content={`${stk.name} (${stk.role}) • ${stk.stance.toUpperCase()}: "${stk.rationale}"`}
+                                      content={tooltipLabel}
                                     >
-                                      <div className="relative inline-block">
-                                        <div className="flex h-4 w-4 items-center justify-center rounded-full text-[7.5px] font-bold bg-surface-muted text-content-muted border-2 border-surface font-sans select-none shadow-2xs">
+                                      <div 
+                                        className="relative inline-flex items-center justify-center cursor-pointer"
+                                        title={`${stk.name} (${stk.role})`}
+                                      >
+                                        <div className="flex h-5 w-5 items-center justify-center rounded-full text-[9px] font-bold bg-surface-muted text-content-secondary font-sans select-none hover:bg-surface-hover hover:text-content-primary transition-colors shadow-2xs">
                                           {stk.initials}
                                         </div>
                                         {dotColor && (
