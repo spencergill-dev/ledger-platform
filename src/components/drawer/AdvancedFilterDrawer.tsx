@@ -59,10 +59,12 @@ export function AdvancedFilterDrawer({
   const categories = [
     { id: 'ALL', label: 'All Categories' },
     { id: 'Infrastructure', label: 'Infrastructure' },
-    { id: 'Market Entry', label: 'Market Entry' },
-    { id: 'Vendor Migration', label: 'Vendor Migration' },
+    { id: 'AI & Machine Learning', label: 'AI & Machine Learning' },
+    { id: 'Security & Zero Trust', label: 'Security & Zero Trust' },
     { id: 'Product Core', label: 'Product Core' },
+    { id: 'Market Entry', label: 'Market Entry' },
     { id: 'Capital Allocation', label: 'Capital Allocation' },
+    { id: 'Vendor Migration', label: 'Vendor Migration' },
   ];
 
   const statuses = [

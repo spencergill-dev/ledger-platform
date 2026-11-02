@@ -80,7 +80,14 @@ export interface Decision {
 
   // Strategic intelligence extensions
   hypothesis: string;
-  category: 'Infrastructure' | 'Market Entry' | 'Vendor Migration' | 'Product Core' | 'Capital Allocation';
+  category: 
+    | 'Infrastructure' 
+    | 'Market Entry' 
+    | 'Vendor Migration' 
+    | 'Product Core' 
+    | 'Capital Allocation'
+    | 'AI & Machine Learning'
+    | 'Security & Zero Trust';
   createdAt: string;
   alternativesConsidered?: AlternativeConsidered[];
   retrospectiveSnapshot?: RetrospectiveSnapshot;
@@ -93,5 +100,5 @@ export interface RetrospectiveInsight {
   headline: string;
   insight: string;
   dateLogged: string;
-  impactTag: 'Variance Warning' | 'Capital Discipline' | 'Timeline Estimation' | 'Architecture';
+  impactTag: 'Variance Warning' | 'Capital Discipline' | 'Timeline Estimation' | 'Architecture' | 'Velocity & Cost Control';
 }

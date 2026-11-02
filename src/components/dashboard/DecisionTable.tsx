@@ -91,13 +91,34 @@ export function DecisionTable({
       const r = decision.owner.role.toLowerCase();
       const c = decision.category.toLowerCase();
       if (departmentFilter === 'engineering') {
-        return r.includes('infrastructure') || r.includes('engineer') || r.includes('devops') || c.includes('infrastructure');
+        return (
+          r.includes('infrastructure') || 
+          r.includes('engineer') || 
+          r.includes('devops') || 
+          r.includes('security') || 
+          r.includes('research') || 
+          c.includes('infrastructure') || 
+          c.includes('ai') || 
+          c.includes('security')
+        );
       }
       if (departmentFilter === 'product') {
         return r.includes('product') || r.includes('architect') || c.includes('product');
       }
       if (departmentFilter === 'leadership') {
-        return !(r.includes('infrastructure') || r.includes('engineer') || r.includes('devops') || c.includes('infrastructure') || r.includes('product') || r.includes('architect') || c.includes('product'));
+        return !(
+          r.includes('infrastructure') || 
+          r.includes('engineer') || 
+          r.includes('devops') || 
+          r.includes('security') || 
+          r.includes('research') || 
+          c.includes('infrastructure') || 
+          c.includes('ai') || 
+          c.includes('security') || 
+          r.includes('product') || 
+          r.includes('architect') || 
+          c.includes('product')
+        );
       }
       return true;
     };
@@ -393,6 +414,8 @@ export function DecisionTable({
                             decision.category.toLowerCase().includes('product') ? "text-blue-700 dark:text-blue-300" :
                             decision.category.toLowerCase().includes('capital') ? "text-purple-700 dark:text-purple-300" :
                             decision.category.toLowerCase().includes('market') ? "text-amber-700 dark:text-amber-300" :
+                            decision.category.toLowerCase().includes('ai') ? "text-violet-700 dark:text-violet-300" :
+                            decision.category.toLowerCase().includes('security') ? "text-rose-700 dark:text-rose-300" :
                             "text-slate-600 dark:text-slate-300"
                           )}>
                             <span className={cn(
@@ -401,6 +424,8 @@ export function DecisionTable({
                               decision.category.toLowerCase().includes('product') ? "bg-blue-500" :
                               decision.category.toLowerCase().includes('capital') ? "bg-purple-500" :
                               decision.category.toLowerCase().includes('market') ? "bg-amber-500" :
+                              decision.category.toLowerCase().includes('ai') ? "bg-violet-500" :
+                              decision.category.toLowerCase().includes('security') ? "bg-rose-500" :
                               "bg-slate-400"
                             )} />
                             <span>{decision.category}</span>
