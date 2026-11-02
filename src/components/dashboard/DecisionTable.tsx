@@ -370,20 +370,46 @@ export function DecisionTable({
                         "py-3.5 px-4 w-[36%] align-middle border-l-4 transition-all",
                         isSelected ? "border-l-4 border-blue-600" : "border-l-4 border-l-transparent"
                       )}>
-                        <div className="flex items-center gap-2 text-xs">
+                        <div className="flex items-center gap-2 text-xs flex-wrap">
                           <span className="font-mono font-medium tracking-normal text-slate-400 dark:text-slate-500 text-xs tabular-nums">
                             {decision.id}
                           </span>
                           
-                          {/* Versioning Badge */}
-                          <span className="inline-flex items-center px-1.5 py-0.5 rounded border border-slate-200 dark:border-neutral-700 bg-slate-50 dark:bg-neutral-800 text-slate-500 dark:text-slate-400 font-mono text-[10px] font-medium uppercase tracking-wide">
-                            {(decision.version || 'v1.0 Frozen').toUpperCase()}
+                          {/* Versioning Badge with subtle lifecycle color */}
+                          <span className={cn(
+                            "inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-sans font-medium uppercase tracking-wide border",
+                            decision.version?.toLowerCase().includes('amended')
+                              ? "bg-blue-50 text-blue-700 border-blue-200/80 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800/60"
+                              : "bg-slate-100 text-slate-600 border-slate-200/80 dark:bg-neutral-800 dark:text-slate-300 dark:border-neutral-700"
+                          )}>
+                            {decision.version || 'v1.0 Frozen'}
+                          </span>
+
+                          {/* Subtle Category Tag with Department Color Indicator */}
+                          <span className="text-slate-300 dark:text-neutral-700">•</span>
+                          <span className={cn(
+                            "inline-flex items-center gap-1.5 text-[11px] font-medium font-sans",
+                            decision.category.toLowerCase().includes('infra') ? "text-emerald-700 dark:text-emerald-300" :
+                            decision.category.toLowerCase().includes('product') ? "text-blue-700 dark:text-blue-300" :
+                            decision.category.toLowerCase().includes('capital') ? "text-purple-700 dark:text-purple-300" :
+                            decision.category.toLowerCase().includes('market') ? "text-amber-700 dark:text-amber-300" :
+                            "text-slate-600 dark:text-slate-300"
+                          )}>
+                            <span className={cn(
+                              "h-1.5 w-1.5 rounded-full shrink-0",
+                              decision.category.toLowerCase().includes('infra') ? "bg-emerald-500" :
+                              decision.category.toLowerCase().includes('product') ? "bg-blue-500" :
+                              decision.category.toLowerCase().includes('capital') ? "bg-purple-500" :
+                              decision.category.toLowerCase().includes('market') ? "bg-amber-500" :
+                              "bg-slate-400"
+                            )} />
+                            <span>{decision.category}</span>
                           </span>
                         </div>
                         <div className="font-semibold text-slate-900 dark:text-white text-sm tracking-tight mt-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1 font-sans">
                           {decision.title}
                         </div>
-                        <p className="text-slate-500 dark:text-slate-400 text-xs line-clamp-1 mt-0.5 font-normal leading-normal font-sans">
+                        <p className="text-slate-600 dark:text-slate-300/90 text-xs line-clamp-1 mt-0.5 font-normal leading-normal font-sans">
                           {decision.hypothesis}
                         </p>
                       </td>
