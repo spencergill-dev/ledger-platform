@@ -104,13 +104,6 @@ export function PasswordGate({ onUnlock }: PasswordGateProps) {
             </button>
           </form>
         </div>
-
-        {/* Footer info */}
-        <p className="text-center text-[11px] text-slate-500">
-          Default password: <code className="bg-slate-800 px-1.5 py-0.5 rounded text-slate-300 font-mono">praxus2026</code>
-          <br />
-          <span className="text-[10px] text-slate-600">Configurable in Vercel via VITE_APP_PASSWORD</span>
-        </p>
       </div>
     </div>
   );
