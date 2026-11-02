@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Decision } from '../../types/decision';
 import { Badge } from '../ui/Badge';
 import { 
@@ -13,7 +13,9 @@ import {
 } from '../../lib/utils';
 import { 
   Search, 
-  SlidersHorizontal 
+  SlidersHorizontal,
+  ChevronDown,
+  Check
 } from 'lucide-react';
 import { Tooltip } from '../ui/Tooltip';
 import { AdvancedFilterDrawer } from '../drawer/AdvancedFilterDrawer';
@@ -36,6 +38,26 @@ export function DecisionTable({
   const [capitalFilter, setCapitalFilter] = useState<string>('ALL');
   const [isAdvancedFilterOpen, setIsAdvancedFilterOpen] = useState(false);
   const [resourceView, setResourceView] = useState<'both' | 'capital' | 'time'>('both');
+  const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
+  const statusDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (statusDropdownRef.current && !statusDropdownRef.current.contains(event.target as Node)) {
+        setIsStatusDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setIsStatusDropdownOpen(false);
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const resetAllFilters = () => {
     setStatusFilter('ALL');
@@ -98,20 +120,25 @@ export function DecisionTable({
     d => d.status === 'Review Due' && isPastDate(d.targetReviewDate)
   ).length;
   const inProgressCount = decisions.filter(d => d.status === 'In Progress').length;
+  const reviewDueCount = decisions.filter(d => d.status === 'Review Due').length;
+  const approvedCount = decisions.filter(d => d.status === 'Approved').length;
+  const reviewedCount = decisions.filter(d => d.status === 'Reviewed').length;
 
   const showCapital = resourceView === 'capital' || resourceView === 'both';
   const showTime = resourceView === 'time' || resourceView === 'both';
   const colCount = 3 + (showCapital ? 1 : 0) + (showTime ? 1 : 0);
 
-  // Quick tabs matching target design: All (6), Overdue (2), In Progress (1) + active selection
-  const quickTabs = [
-    { id: 'ALL', label: `All (${decisions.length})` },
-    { id: 'OVERDUE', label: `Overdue (${overdueCount})` },
-    { id: 'In Progress', label: `In Progress (${inProgressCount})` },
-    ...(statusFilter !== 'ALL' && statusFilter !== 'OVERDUE' && statusFilter !== 'In Progress' 
-      ? [{ id: statusFilter, label: `${statusFilter} (${decisions.filter(d => d.status === statusFilter).length})` }] 
-      : [])
+  // Status Filter Options accounting for 100% of decisions in the dataset
+  const statusOptions = [
+    { id: 'ALL', label: 'All Decisions', shortLabel: 'All', count: decisions.length, dotColor: 'bg-slate-400' },
+    { id: 'OVERDUE', label: 'Overdue', shortLabel: 'Overdue', count: overdueCount, dotColor: 'bg-rose-500' },
+    { id: 'In Progress', label: 'In Progress', shortLabel: 'In Progress', count: inProgressCount, dotColor: 'bg-blue-500' },
+    { id: 'Review Due', label: 'Review Due', shortLabel: 'Review Due', count: reviewDueCount, dotColor: 'bg-amber-500' },
+    { id: 'Approved', label: 'Approved', shortLabel: 'Approved', count: approvedCount, dotColor: 'bg-emerald-500' },
+    { id: 'Reviewed', label: 'Reviewed', shortLabel: 'Reviewed', count: reviewedCount, dotColor: 'bg-purple-500' },
   ];
+
+  const currentStatusOption = statusOptions.find(opt => opt.id === statusFilter) || statusOptions[0];
 
   return (
     <div className="w-full">
@@ -175,28 +202,76 @@ export function DecisionTable({
             </button>
           </div>
 
-          {/* Right Section: Segmented Filter Tabs + Filters Button */}
+          {/* Right Section: Status Dropdown Menu + Filters Button */}
           <div className="ml-auto flex items-center gap-2 shrink-0">
-            {/* Segmented Filter Control */}
-            <div className="h-8 inline-flex items-center p-0.5 rounded-md bg-slate-100/70 dark:bg-neutral-800/60 border border-slate-200/60 dark:border-neutral-700/60 gap-0.5">
-              {quickTabs.map(tab => {
-                const isActive = statusFilter === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => setStatusFilter(tab.id)}
-                    className={cn(
-                      "text-xs font-medium px-2.5 py-1 rounded-md transition-all whitespace-nowrap",
-                      isActive
-                        ? "bg-white dark:bg-neutral-900 text-slate-800 dark:text-slate-100 shadow-2xs border border-slate-200/80 dark:border-neutral-700 font-semibold"
-                        : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
-                    )}
-                  >
-                    {tab.label}
-                  </button>
-                );
-              })}
+            {/* Consolidated "Status: All" Dropdown Menu */}
+            <div className="relative inline-block text-left" ref={statusDropdownRef}>
+              <button
+                type="button"
+                onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
+                className={cn(
+                  "h-8 inline-flex items-center gap-2 px-3 rounded-md border text-xs font-medium transition-colors whitespace-nowrap shadow-2xs select-none",
+                  statusFilter !== 'ALL'
+                    ? "bg-slate-50 dark:bg-neutral-800 text-slate-900 dark:text-white border-slate-300 dark:border-neutral-700 font-semibold"
+                    : "bg-white dark:bg-neutral-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-neutral-800 border-slate-200 dark:border-neutral-700"
+                )}
+              >
+                <span className="text-slate-400 dark:text-slate-500 font-normal">Status:</span>
+                <div className="flex items-center gap-1.5 font-semibold text-slate-900 dark:text-white">
+                  {statusFilter !== 'ALL' && currentStatusOption.dotColor && (
+                    <span className={cn("h-2 w-2 rounded-full shrink-0", currentStatusOption.dotColor)} />
+                  )}
+                  <span>{currentStatusOption.shortLabel} ({currentStatusOption.count})</span>
+                </div>
+                <ChevronDown className={cn("h-3.5 w-3.5 text-slate-400 transition-transform duration-150", isStatusDropdownOpen && "rotate-180")} />
+              </button>
+
+              {isStatusDropdownOpen && (
+                <div className="absolute right-0 mt-1.5 w-56 rounded-md border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#1a1a1a] shadow-lg py-1 z-40">
+                  <div className="px-3 py-1.5 text-[10px] font-semibold text-slate-400 dark:text-neutral-500 uppercase tracking-wider border-b border-slate-100 dark:border-neutral-800">
+                    Filter by Lifecycle Status
+                  </div>
+                  <div className="py-1">
+                    {statusOptions.map((opt) => {
+                      const isSelected = statusFilter === opt.id;
+                      return (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => {
+                            setStatusFilter(opt.id);
+                            setIsStatusDropdownOpen(false);
+                          }}
+                          className={cn(
+                            "w-full flex items-center justify-between px-3 py-2 text-xs transition-colors",
+                            isSelected
+                              ? "bg-slate-50 dark:bg-neutral-800/80 font-semibold text-slate-900 dark:text-white"
+                              : "text-slate-700 dark:text-slate-300 hover:bg-slate-50/80 dark:hover:bg-neutral-800/50 font-normal"
+                          )}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className={cn("h-2 w-2 rounded-full shrink-0", opt.dotColor)} />
+                            <span>{opt.label}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className={cn(
+                              "text-[11px] tabular-nums px-1.5 py-0.2 rounded font-sans",
+                              isSelected
+                                ? "bg-slate-200/80 text-slate-800 dark:bg-neutral-700 dark:text-slate-200 font-semibold"
+                                : "text-slate-400 dark:text-slate-500"
+                            )}>
+                              {opt.count}
+                            </span>
+                            {isSelected && (
+                              <Check className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                            )}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Advanced Filters Button */}
