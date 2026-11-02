@@ -77,7 +77,7 @@ export function App() {
         {/* Title Header with tracking-tight and high contrast */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200 dark:border-neutral-800 pb-4">
           <div className="flex items-center gap-2.5">
-            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white font-cal">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white font-cal">
               Strategic Decisions Feed
             </h1>
             <Tooltip content="All hypotheses, metrics, and counterfactuals are cryptographically timestamped and immutable">
