@@ -444,10 +444,8 @@ export function DecisionTable({
                         <div className="flex items-start gap-2.5">
                           {/* Main Owner Profile Avatar */}
                           <div className={cn(
-                            "flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-bold text-white shrink-0 font-sans mt-0.5 shadow-2xs",
-                            decision.owner.avatarColor && !decision.owner.avatarColor.includes('slate-200')
-                              ? decision.owner.avatarColor
-                              : getDepartmentAvatarStyle(decision.owner.role, decision.category)
+                            "flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-bold shrink-0 font-sans mt-0.5",
+                            getDepartmentAvatarStyle(decision.owner.role, decision.category)
                           )}>
                             {decision.owner.initials || getInitials(decision.owner.name)}
                           </div>

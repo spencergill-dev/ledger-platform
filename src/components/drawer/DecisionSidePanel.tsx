@@ -524,7 +524,7 @@ export function DecisionSidePanel({
                 <div className="p-3 rounded-md border border-subtle bg-surface-subtle flex items-center justify-between gap-3 shadow-2xs">
                   <div className="flex items-center gap-2.5">
                     <div className={cn(
-                      "flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white shrink-0",
+                      "flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold shrink-0",
                       getDepartmentAvatarStyle(decision.owner.role, decision.category)
                     )}>
                       {decision.owner.initials || getInitials(decision.owner.name)}
@@ -566,8 +566,8 @@ export function DecisionSidePanel({
                         <div className="flex items-center justify-between gap-2">
                           <div className="flex items-center gap-2">
                             <div className={cn(
-                              "flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold text-white shrink-0",
-                              stk.avatarColor || getDepartmentAvatarStyle(stk.role, 'Infrastructure')
+                              "flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold shrink-0",
+                              getDepartmentAvatarStyle(stk.role)
                             )}>
                               {stk.initials}
                             </div>

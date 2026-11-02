@@ -142,7 +142,7 @@ export function DecisionDeepDiveModal({
                   <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400 pt-1">
                     <div className="flex items-center gap-2">
                       <div className={cn(
-                        "flex h-5 w-5 items-center justify-center rounded-full text-[9px] font-bold text-white shrink-0 shadow-2xs",
+                        "flex h-5 w-5 items-center justify-center rounded-full text-[9px] font-bold shrink-0 shadow-2xs",
                         getDepartmentAvatarStyle(decision.owner.role, decision.category)
                       )}>
                         {decision.owner.initials || getInitials(decision.owner.name)}
