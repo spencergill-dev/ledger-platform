@@ -86,7 +86,7 @@ export function StatCards({ decisions }: StatCardsProps) {
             <span>Active Decisions</span>
           </div>
         </Tooltip>
-        <div className="mt-2 flex items-baseline gap-2">
+        <div className="mt-2 flex items-baseline gap-[0.4rem]">
           <span className="text-2xl font-bold text-slate-900 dark:text-white font-cal">
             {activeBets}
           </span>
