@@ -29,7 +29,7 @@ export function StatCards({ decisions }: StatCardsProps) {
   const reviewedCount = decisions.filter((d) => d.status === 'Reviewed').length;
 
   return (
-    <div className="w-full rounded-md border border-slate-300 dark:border-neutral-800 bg-white dark:bg-[#171717] overflow-hidden">
+    <div className="w-full rounded-md border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#171717] overflow-hidden shadow-2xs">
       <div className="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 dark:divide-neutral-800">
         {/* Total Capital at Risk */}
         <div className="p-4 sm:p-5 transition-colors">

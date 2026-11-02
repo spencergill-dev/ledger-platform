@@ -93,7 +93,7 @@ export function DecisionSidePanel({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[500px] md:w-[580px] lg:w-[44%] min-w-[390px] max-w-[720px] bg-white dark:bg-[#141414] border-l-2 border-slate-300 dark:border-neutral-700 shadow-none rounded-none flex flex-col h-full overflow-hidden text-slate-900 dark:text-slate-100"
+            className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[500px] md:w-[580px] lg:w-[44%] min-w-[390px] max-w-[720px] bg-white dark:bg-[#141414] border-l border-slate-200 dark:border-neutral-700 shadow-none rounded-none flex flex-col h-full overflow-hidden text-slate-900 dark:text-slate-100"
             role="dialog"
             aria-label={`${decision.id} Ledger Details`}
           >
@@ -423,7 +423,7 @@ export function DecisionSidePanel({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-3 py-1.5 rounded-md text-xs font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-neutral-800 border border-slate-300 dark:border-neutral-700 hover:bg-slate-50 transition-colors"
+                  className="px-3 py-1.5 rounded-md text-xs font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 hover:bg-slate-50 transition-colors shadow-2xs"
                 >
                   Close (Esc)
                 </button>

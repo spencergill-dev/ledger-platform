@@ -94,7 +94,7 @@ export function App() {
 
           <div className="hidden sm:block text-xs font-sans shrink-0">
             <Tooltip content="Automated 6-month retrospective cadence requiring executive sign-off on metric variance">
-              <span className="inline-flex items-center rounded-md border border-slate-300 dark:border-neutral-700 bg-white dark:bg-[#171717] px-3 py-1.5 font-medium text-slate-800 dark:text-slate-200 cursor-help">
+              <span className="inline-flex items-center rounded-md border border-slate-200 dark:border-neutral-700 bg-white dark:bg-[#171717] px-3 py-1.5 font-medium text-slate-800 dark:text-slate-200 cursor-help shadow-2xs">
                 Forced Retrospective Protocol v2.4
               </span>
             </Tooltip>
