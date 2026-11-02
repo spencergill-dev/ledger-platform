@@ -15,7 +15,11 @@ import {
   Search, 
   SlidersHorizontal,
   ChevronDown,
-  Check
+  Check,
+  Building2,
+  Tag,
+  DollarSign,
+  RotateCcw
 } from 'lucide-react';
 import { Tooltip } from '../ui/Tooltip';
 import { AdvancedFilterDrawer } from '../drawer/AdvancedFilterDrawer';
@@ -38,13 +42,13 @@ export function DecisionTable({
   const [capitalFilter, setCapitalFilter] = useState<string>('ALL');
   const [isAdvancedFilterOpen, setIsAdvancedFilterOpen] = useState(false);
   const [resourceView, setResourceView] = useState<'both' | 'capital' | 'time'>('both');
-  const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
-  const statusDropdownRef = useRef<HTMLDivElement>(null);
+  const [openDropdown, setOpenDropdown] = useState<'status' | 'department' | 'category' | 'capital' | null>(null);
+  const toolbarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (statusDropdownRef.current && !statusDropdownRef.current.contains(event.target as Node)) {
-        setIsStatusDropdownOpen(false);
+      if (toolbarRef.current && !toolbarRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -53,7 +57,7 @@ export function DecisionTable({
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') setIsStatusDropdownOpen(false);
+      if (e.key === 'Escape') setOpenDropdown(null);
     }
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
@@ -159,7 +163,96 @@ export function DecisionTable({
     { id: 'Reviewed', label: 'Reviewed', shortLabel: 'Reviewed', count: reviewedCount, dotColor: 'bg-purple-500' },
   ];
 
+  const getDeptCount = (deptId: string) => {
+    if (deptId === 'ALL') return decisions.length;
+    return decisions.filter(d => {
+      const r = d.owner.role.toLowerCase();
+      const c = d.category.toLowerCase();
+      if (deptId === 'engineering') {
+        return (
+          r.includes('infrastructure') || 
+          r.includes('engineer') || 
+          r.includes('devops') || 
+          r.includes('security') || 
+          r.includes('research') || 
+          c.includes('infrastructure') || 
+          c.includes('ai') || 
+          c.includes('security')
+        );
+      }
+      if (deptId === 'product') {
+        return r.includes('product') || r.includes('architect') || c.includes('product');
+      }
+      if (deptId === 'leadership') {
+        return !(
+          r.includes('infrastructure') || 
+          r.includes('engineer') || 
+          r.includes('devops') || 
+          r.includes('security') || 
+          r.includes('research') || 
+          c.includes('infrastructure') || 
+          c.includes('ai') || 
+          c.includes('security') || 
+          r.includes('product') || 
+          r.includes('architect') || 
+          c.includes('product')
+        );
+      }
+      return true;
+    }).length;
+  };
+
+  const departmentOptions = [
+    { id: 'ALL', label: 'All Departments', shortLabel: 'All', count: decisions.length },
+    { id: 'leadership', label: 'Executive & Strategy', shortLabel: 'Executive', count: getDeptCount('leadership') },
+    { id: 'engineering', label: 'Engineering & Infra', shortLabel: 'Engineering', count: getDeptCount('engineering') },
+    { id: 'product', label: 'Product & Systems', shortLabel: 'Product', count: getDeptCount('product') },
+  ];
+
+  const uniqueCategories = Array.from(new Set(decisions.map(d => d.category))).filter(Boolean).sort();
+  const categoryOptions = [
+    { id: 'ALL', label: 'All Categories', shortLabel: 'All', count: decisions.length },
+    ...uniqueCategories.map(cat => ({
+      id: cat,
+      label: cat,
+      shortLabel: cat.length > 16 ? cat.slice(0, 14) + '...' : cat,
+      count: decisions.filter(d => d.category === cat).length
+    }))
+  ];
+
+  const capitalOptions = [
+    { 
+      id: 'ALL', 
+      label: 'Any Capital', 
+      shortLabel: 'All', 
+      count: decisions.length 
+    },
+    { 
+      id: '<250k', 
+      label: 'Under $250k', 
+      shortLabel: '<$250k', 
+      count: decisions.filter(d => d.originalEstimates.capitalAtRisk < 250000).length 
+    },
+    { 
+      id: '250k-500k', 
+      label: '$250k – $500k', 
+      shortLabel: '$250k-$500k', 
+      count: decisions.filter(d => d.originalEstimates.capitalAtRisk >= 250000 && d.originalEstimates.capitalAtRisk <= 500000).length 
+    },
+    { 
+      id: '500k+', 
+      label: '$500k and Above', 
+      shortLabel: '$500k+', 
+      count: decisions.filter(d => d.originalEstimates.capitalAtRisk > 500000).length 
+    },
+  ];
+
   const currentStatusOption = statusOptions.find(opt => opt.id === statusFilter) || statusOptions[0];
+  const currentDeptOption = departmentOptions.find(opt => opt.id === departmentFilter) || departmentOptions[0];
+  const currentCategoryOption = categoryOptions.find(opt => opt.id === categoryFilter) || categoryOptions[0];
+  const currentCapitalOption = capitalOptions.find(opt => opt.id === capitalFilter) || capitalOptions[0];
+  const totalActiveFilterCount = activeAdvancedCount + (statusFilter !== 'ALL' ? 1 : 0);
+  const hasActiveFilters = totalActiveFilterCount > 0 || searchQuery.trim().length > 0;
 
   return (
     <div className="w-full">
@@ -167,22 +260,25 @@ export function DecisionTable({
       <div className="w-full rounded-md border border-subtle bg-surface transition-colors shadow-2xs">
         
         {/* Flush Top Search & Filter Toolbar - relative z-30 ensures dropdown overlays table */}
-        <div className="relative z-30 p-3 sm:p-3.5 border-b border-subtle flex items-center gap-2 bg-surface rounded-t-md">
+        <div 
+          ref={toolbarRef}
+          className="relative z-30 p-2.5 sm:p-3 border-b border-subtle flex flex-wrap items-center gap-2 bg-surface rounded-t-md"
+        >
           {/* Search Input */}
-          <div className="relative flex items-center shrink-0 w-44 sm:w-56 md:w-64">
+          <div className="relative flex items-center shrink-0 w-36 sm:w-44 md:w-52">
             <Search className="absolute left-2.5 h-3.5 w-3.5 text-content-faint pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search decisions, owners, hypc"
+              placeholder="Search decisions..."
               className="w-full h-8 pl-8 pr-2.5 rounded-md border border-subtle bg-surface-subtle text-xs text-content-primary placeholder:text-content-faint focus:outline-none focus:border-border-strong transition-colors font-sans"
             />
           </div>
 
           {/* Segmented Control Toggle: [ View: Capital Time Both ] */}
-          <div className="h-8 inline-flex items-center gap-1 px-2 rounded-md bg-surface-muted/60 border border-border-muted text-xs shrink-0 select-none">
-            <span className="text-content-faint font-mono text-[11px] mr-1">
+          <div className="h-8 inline-flex items-center gap-1 px-1.5 sm:px-2 rounded-md bg-surface-muted/60 border border-border-muted text-xs shrink-0 select-none">
+            <span className="text-content-faint font-mono text-[11px] mr-1 hidden sm:inline">
               View:
             </span>
             <button
@@ -223,77 +319,339 @@ export function DecisionTable({
             </button>
           </div>
 
-          {/* Right Section: Status Dropdown Menu + Filters Button */}
+          <div className="h-4 w-px bg-border-muted mx-0.5 hidden xl:block shrink-0" />
+
+          {/* Dedicated Filter Dropdowns */}
+          {/* 1. Status Dropdown */}
+          <div className="relative inline-block text-left">
+            <button
+              type="button"
+              onClick={() => setOpenDropdown(openDropdown === 'status' ? null : 'status')}
+              className={cn(
+                "h-8 inline-flex items-center gap-1.5 px-2.5 rounded-md border text-xs font-medium transition-colors whitespace-nowrap shadow-2xs select-none",
+                statusFilter !== 'ALL'
+                  ? "bg-surface-subtle text-content-primary border-border-strong font-semibold"
+                  : "bg-surface text-content-secondary hover:bg-surface-hover border-subtle"
+              )}
+            >
+              <span className="text-content-faint font-normal">Status:</span>
+              <div className="flex items-center gap-1.5 font-semibold text-content-primary">
+                {statusFilter !== 'ALL' && currentStatusOption.dotColor && (
+                  <span className={cn("h-2 w-2 rounded-full shrink-0", currentStatusOption.dotColor)} />
+                )}
+                <span>{currentStatusOption.shortLabel}</span>
+              </div>
+              <ChevronDown className={cn("h-3.5 w-3.5 text-content-faint transition-transform duration-150", openDropdown === 'status' && "rotate-180")} />
+            </button>
+
+            {openDropdown === 'status' && (
+              <div className="absolute left-0 mt-1.5 w-56 rounded-md border border-subtle bg-surface-elevated shadow-elevated py-1 z-50">
+                <div className="px-3 py-1.5 text-[10px] font-semibold text-content-faint uppercase tracking-wider border-b border-border-muted flex items-center justify-between">
+                  <span>Lifecycle Status</span>
+                  {statusFilter !== 'ALL' && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setStatusFilter('ALL');
+                        setOpenDropdown(null);
+                      }}
+                      className="text-[10px] text-blue-600 dark:text-blue-400 hover:underline normal-case font-normal"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+                <div className="py-1">
+                  {statusOptions.map((opt) => {
+                    const isSelected = statusFilter === opt.id;
+                    return (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        onClick={() => {
+                          setStatusFilter(opt.id);
+                          setOpenDropdown(null);
+                        }}
+                        className={cn(
+                          "w-full flex items-center justify-between px-3 py-1.5 text-xs transition-colors",
+                          isSelected
+                            ? "bg-surface-subtle font-semibold text-content-primary"
+                            : "text-content-secondary hover:bg-surface-hover font-normal"
+                        )}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className={cn("h-2 w-2 rounded-full shrink-0", opt.dotColor)} />
+                          <span>{opt.label}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className={cn(
+                            "text-[11px] tabular-nums px-1.5 py-0.2 rounded font-sans",
+                            isSelected
+                              ? "bg-surface-muted text-content-primary font-semibold"
+                              : "text-content-faint"
+                          )}>
+                            {opt.count}
+                          </span>
+                          {isSelected && (
+                            <Check className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 2. Department Dropdown */}
+          <div className="relative inline-block text-left">
+            <button
+              type="button"
+              onClick={() => setOpenDropdown(openDropdown === 'department' ? null : 'department')}
+              className={cn(
+                "h-8 inline-flex items-center gap-1.5 px-2.5 rounded-md border text-xs font-medium transition-colors whitespace-nowrap shadow-2xs select-none",
+                departmentFilter !== 'ALL'
+                  ? "bg-surface-subtle text-content-primary border-border-strong font-semibold"
+                  : "bg-surface text-content-secondary hover:bg-surface-hover border-subtle"
+              )}
+            >
+              <Building2 className="h-3.5 w-3.5 text-content-faint shrink-0" />
+              <span className="text-content-faint font-normal">Dept:</span>
+              <span className="font-semibold text-content-primary max-w-[100px] truncate">
+                {currentDeptOption.shortLabel}
+              </span>
+              <ChevronDown className={cn("h-3.5 w-3.5 text-content-faint transition-transform duration-150", openDropdown === 'department' && "rotate-180")} />
+            </button>
+
+            {openDropdown === 'department' && (
+              <div className="absolute left-0 mt-1.5 w-56 rounded-md border border-subtle bg-surface-elevated shadow-elevated py-1 z-50">
+                <div className="px-3 py-1.5 text-[10px] font-semibold text-content-faint uppercase tracking-wider border-b border-border-muted flex items-center justify-between">
+                  <span>Department / Function</span>
+                  {departmentFilter !== 'ALL' && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDepartmentFilter('ALL');
+                        setOpenDropdown(null);
+                      }}
+                      className="text-[10px] text-blue-600 dark:text-blue-400 hover:underline normal-case font-normal"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+                <div className="py-1">
+                  {departmentOptions.map((opt) => {
+                    const isSelected = departmentFilter === opt.id;
+                    return (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        onClick={() => {
+                          setDepartmentFilter(opt.id);
+                          setOpenDropdown(null);
+                        }}
+                        className={cn(
+                          "w-full flex items-center justify-between px-3 py-1.5 text-xs transition-colors",
+                          isSelected
+                            ? "bg-surface-subtle font-semibold text-content-primary"
+                            : "text-content-secondary hover:bg-surface-hover font-normal"
+                        )}
+                      >
+                        <span>{opt.label}</span>
+                        <div className="flex items-center gap-2">
+                          <span className={cn(
+                            "text-[11px] tabular-nums px-1.5 py-0.2 rounded font-sans",
+                            isSelected
+                              ? "bg-surface-muted text-content-primary font-semibold"
+                              : "text-content-faint"
+                          )}>
+                            {opt.count}
+                          </span>
+                          {isSelected && (
+                            <Check className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 3. Category Dropdown */}
+          <div className="relative inline-block text-left">
+            <button
+              type="button"
+              onClick={() => setOpenDropdown(openDropdown === 'category' ? null : 'category')}
+              className={cn(
+                "h-8 inline-flex items-center gap-1.5 px-2.5 rounded-md border text-xs font-medium transition-colors whitespace-nowrap shadow-2xs select-none",
+                categoryFilter !== 'ALL'
+                  ? "bg-surface-subtle text-content-primary border-border-strong font-semibold"
+                  : "bg-surface text-content-secondary hover:bg-surface-hover border-subtle"
+              )}
+            >
+              <Tag className="h-3.5 w-3.5 text-content-faint shrink-0" />
+              <span className="text-content-faint font-normal">Category:</span>
+              <span className="font-semibold text-content-primary max-w-[110px] truncate">
+                {currentCategoryOption.shortLabel}
+              </span>
+              <ChevronDown className={cn("h-3.5 w-3.5 text-content-faint transition-transform duration-150", openDropdown === 'category' && "rotate-180")} />
+            </button>
+
+            {openDropdown === 'category' && (
+              <div className="absolute left-0 mt-1.5 w-60 rounded-md border border-subtle bg-surface-elevated shadow-elevated py-1 z-50">
+                <div className="px-3 py-1.5 text-[10px] font-semibold text-content-faint uppercase tracking-wider border-b border-border-muted flex items-center justify-between">
+                  <span>Strategic Category</span>
+                  {categoryFilter !== 'ALL' && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCategoryFilter('ALL');
+                        setOpenDropdown(null);
+                      }}
+                      className="text-[10px] text-blue-600 dark:text-blue-400 hover:underline normal-case font-normal"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+                <div className="max-h-60 overflow-y-auto py-1">
+                  {categoryOptions.map((opt) => {
+                    const isSelected = categoryFilter === opt.id;
+                    return (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        onClick={() => {
+                          setCategoryFilter(opt.id);
+                          setOpenDropdown(null);
+                        }}
+                        className={cn(
+                          "w-full flex items-center justify-between px-3 py-1.5 text-xs transition-colors",
+                          isSelected
+                            ? "bg-surface-subtle font-semibold text-content-primary"
+                            : "text-content-secondary hover:bg-surface-hover font-normal"
+                        )}
+                      >
+                        <span className="truncate pr-2">{opt.label}</span>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className={cn(
+                            "text-[11px] tabular-nums px-1.5 py-0.2 rounded font-sans",
+                            isSelected
+                              ? "bg-surface-muted text-content-primary font-semibold"
+                              : "text-content-faint"
+                          )}>
+                            {opt.count}
+                          </span>
+                          {isSelected && (
+                            <Check className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 4. Capital Dropdown */}
+          <div className="relative inline-block text-left">
+            <button
+              type="button"
+              onClick={() => setOpenDropdown(openDropdown === 'capital' ? null : 'capital')}
+              className={cn(
+                "h-8 inline-flex items-center gap-1.5 px-2.5 rounded-md border text-xs font-medium transition-colors whitespace-nowrap shadow-2xs select-none",
+                capitalFilter !== 'ALL'
+                  ? "bg-surface-subtle text-content-primary border-border-strong font-semibold"
+                  : "bg-surface text-content-secondary hover:bg-surface-hover border-subtle"
+              )}
+            >
+              <DollarSign className="h-3.5 w-3.5 text-content-faint shrink-0" />
+              <span className="text-content-faint font-normal">Capital:</span>
+              <span className="font-semibold text-content-primary max-w-[90px] truncate">
+                {currentCapitalOption.shortLabel}
+              </span>
+              <ChevronDown className={cn("h-3.5 w-3.5 text-content-faint transition-transform duration-150", openDropdown === 'capital' && "rotate-180")} />
+            </button>
+
+            {openDropdown === 'capital' && (
+              <div className="absolute left-0 mt-1.5 w-56 rounded-md border border-subtle bg-surface-elevated shadow-elevated py-1 z-50">
+                <div className="px-3 py-1.5 text-[10px] font-semibold text-content-faint uppercase tracking-wider border-b border-border-muted flex items-center justify-between">
+                  <span>Committed Capital</span>
+                  {capitalFilter !== 'ALL' && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCapitalFilter('ALL');
+                        setOpenDropdown(null);
+                      }}
+                      className="text-[10px] text-blue-600 dark:text-blue-400 hover:underline normal-case font-normal"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+                <div className="py-1">
+                  {capitalOptions.map((opt) => {
+                    const isSelected = capitalFilter === opt.id;
+                    return (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        onClick={() => {
+                          setCapitalFilter(opt.id);
+                          setOpenDropdown(null);
+                        }}
+                        className={cn(
+                          "w-full flex items-center justify-between px-3 py-1.5 text-xs transition-colors",
+                          isSelected
+                            ? "bg-surface-subtle font-semibold text-content-primary"
+                            : "text-content-secondary hover:bg-surface-hover font-normal"
+                        )}
+                      >
+                        <span>{opt.label}</span>
+                        <div className="flex items-center gap-2">
+                          <span className={cn(
+                            "text-[11px] tabular-nums px-1.5 py-0.2 rounded font-sans",
+                            isSelected
+                              ? "bg-surface-muted text-content-primary font-semibold"
+                              : "text-content-faint"
+                          )}>
+                            {opt.count}
+                          </span>
+                          {isSelected && (
+                            <Check className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Right Section: Reset + Filters Button */}
           <div className="ml-auto flex items-center gap-2 shrink-0">
-            {/* Consolidated "Status: All" Dropdown Menu */}
-            <div className="relative inline-block text-left" ref={statusDropdownRef}>
+            {hasActiveFilters && (
               <button
                 type="button"
-                onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
-                className={cn(
-                  "h-8 inline-flex items-center gap-2 px-3 rounded-md border text-xs font-medium transition-colors whitespace-nowrap shadow-2xs select-none",
-                  statusFilter !== 'ALL'
-                    ? "bg-surface-subtle text-content-primary border-border-strong font-semibold"
-                    : "bg-surface text-content-secondary hover:bg-surface-hover border-subtle"
-                )}
+                onClick={resetAllFilters}
+                className="h-8 inline-flex items-center gap-1.5 px-2.5 rounded-md text-xs font-medium text-content-muted hover:text-content-primary hover:bg-surface-hover border border-subtle transition-colors shadow-2xs"
+                title="Reset all filters"
               >
-                <span className="text-content-faint font-normal">Status:</span>
-                <div className="flex items-center gap-1.5 font-semibold text-content-primary">
-                  {statusFilter !== 'ALL' && currentStatusOption.dotColor && (
-                    <span className={cn("h-2 w-2 rounded-full shrink-0", currentStatusOption.dotColor)} />
-                  )}
-                  <span>{currentStatusOption.shortLabel} ({currentStatusOption.count})</span>
-                </div>
-                <ChevronDown className={cn("h-3.5 w-3.5 text-content-faint transition-transform duration-150", isStatusDropdownOpen && "rotate-180")} />
+                <RotateCcw className="h-3 w-3" />
+                <span className="hidden sm:inline">Reset</span>
               </button>
-
-              {isStatusDropdownOpen && (
-                <div className="absolute right-0 mt-1.5 w-56 rounded-md border border-subtle bg-surface-elevated shadow-elevated py-1 z-50">
-                  <div className="px-3 py-1.5 text-[10px] font-semibold text-content-faint uppercase tracking-wider border-b border-border-muted">
-                    Filter by Lifecycle Status
-                  </div>
-                  <div className="py-1">
-                    {statusOptions.map((opt) => {
-                      const isSelected = statusFilter === opt.id;
-                      return (
-                        <button
-                          key={opt.id}
-                          type="button"
-                          onClick={() => {
-                            setStatusFilter(opt.id);
-                            setIsStatusDropdownOpen(false);
-                          }}
-                          className={cn(
-                            "w-full flex items-center justify-between px-3 py-2 text-xs transition-colors",
-                            isSelected
-                              ? "bg-surface-subtle font-semibold text-content-primary"
-                              : "text-content-secondary hover:bg-surface-hover font-normal"
-                          )}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className={cn("h-2 w-2 rounded-full shrink-0", opt.dotColor)} />
-                            <span>{opt.label}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className={cn(
-                              "text-[11px] tabular-nums px-1.5 py-0.2 rounded font-sans",
-                              isSelected
-                                ? "bg-surface-muted text-content-primary font-semibold"
-                                : "text-content-faint"
-                            )}>
-                              {opt.count}
-                            </span>
-                            {isSelected && (
-                              <Check className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
-                            )}
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
+            )}
 
             {/* Advanced Filters Button */}
             <button
@@ -301,16 +659,16 @@ export function DecisionTable({
               onClick={() => setIsAdvancedFilterOpen(true)}
               className={cn(
                 "h-8 inline-flex items-center gap-1.5 px-3 rounded-md border text-xs font-medium transition-colors whitespace-nowrap shrink-0 shadow-2xs",
-                activeAdvancedCount > 0
+                totalActiveFilterCount > 0
                   ? "bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-800 font-semibold"
                   : "bg-surface text-content-secondary hover:bg-surface-hover border-subtle"
               )}
             >
-              <SlidersHorizontal className={cn("h-3.5 w-3.5", activeAdvancedCount > 0 ? "text-blue-600" : "text-content-muted")} />
+              <SlidersHorizontal className={cn("h-3.5 w-3.5", totalActiveFilterCount > 0 ? "text-blue-600 dark:text-blue-400" : "text-content-muted")} />
               <span>Filters</span>
-              {activeAdvancedCount > 0 && (
+              {totalActiveFilterCount > 0 && (
                 <span className="flex h-4 w-4 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white dark:bg-white dark:text-slate-900">
-                  {activeAdvancedCount}
+                  {totalActiveFilterCount}
                 </span>
               )}
             </button>
