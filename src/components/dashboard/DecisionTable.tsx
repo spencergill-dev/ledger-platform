@@ -222,16 +222,16 @@ export function DecisionTable({
         <div className="w-full overflow-x-hidden">
           <table className="w-full text-left text-xs border-collapse table-fixed">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#171717]">
-                <th className="py-3 px-4 font-mono text-[10px] font-medium uppercase tracking-wider text-slate-400 dark:text-neutral-500 w-[36%] text-left">
+              <tr className="border-b border-slate-200 dark:border-neutral-800 bg-slate-50/80 dark:bg-neutral-900/60">
+                <th className="py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-800 dark:text-slate-100 w-[36%] text-left">
                   DECISION & HYPOTHESIS
                 </th>
-                <th className="py-3 px-4 font-mono text-[10px] font-medium uppercase tracking-wider text-slate-400 dark:text-neutral-500 w-[18%] text-left">
+                <th className="py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-800 dark:text-slate-100 w-[18%] text-left">
                   OWNER & STAKEHOLDERS
                 </th>
                 {showCapital && (
                   <th className={cn(
-                    "py-3 px-4 font-mono text-[10px] font-medium uppercase tracking-wider text-slate-400 dark:text-neutral-500 text-left whitespace-nowrap",
+                    "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-800 dark:text-slate-100 text-left whitespace-nowrap",
                     resourceView === 'both' ? "w-[16%]" : "w-[24%]"
                   )}>
                     CAPITAL INVESTMENT
@@ -239,14 +239,14 @@ export function DecisionTable({
                 )}
                 {showTime && (
                   <th className={cn(
-                    "py-3 px-4 font-mono text-[10px] font-medium uppercase tracking-wider text-slate-400 dark:text-neutral-500 text-left whitespace-nowrap",
+                    "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-800 dark:text-slate-100 text-left whitespace-nowrap",
                     resourceView === 'both' ? "w-[16%]" : "w-[24%]"
                   )}>
                     TIME INVESTMENT
                   </th>
                 )}
                 <th className={cn(
-                  "py-3 px-4 font-mono text-[10px] font-medium uppercase tracking-wider text-slate-400 dark:text-neutral-500 text-right",
+                  "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-800 dark:text-slate-100 text-right",
                   resourceView === 'both' ? "w-[14%]" : "w-[22%]"
                 )}>
                   STATUS
