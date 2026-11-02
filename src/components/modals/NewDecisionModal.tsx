@@ -37,6 +37,18 @@ export function NewDecisionModal({ isOpen, onClose, onAddDecision }: NewDecision
         avatarColor: 'bg-black/[0.04] text-gray-800',
       },
       status: 'Approved',
+      version: 'v1.0 Frozen',
+      versionStatus: 'Frozen',
+      stakeholders: [
+        {
+          id: 'stk-author',
+          name: ownerName,
+          role: ownerRole,
+          initials: ownerName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase(),
+          stance: 'support',
+          rationale: 'Primary proposal author and sponsor.',
+        },
+      ],
       targetReviewDate: targetDate,
       hypothesis,
       createdAt: new Date().toISOString().split('T')[0],

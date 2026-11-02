@@ -8,10 +8,10 @@ export function RecentInsightsCard() {
   const activeInsight = MOCK_RECENT_INSIGHTS[activeIndex];
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#171717] p-4 shadow-sm transition-colors">
+    <div className="rounded-md border border-slate-300 dark:border-neutral-800 bg-white dark:bg-[#171717] p-4 transition-colors">
       <div className="flex items-start gap-3.5">
         {/* Sparkles icon container */}
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400 mt-0.5">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400 mt-0.5">
           <Sparkles className="h-5 w-5" />
         </div>
 

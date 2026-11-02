@@ -12,6 +12,35 @@ export interface DecisionOwner {
   avatarColor?: string;
 }
 
+export type StakeholderStance = 'support' | 'conditions' | 'dissent';
+
+export interface Stakeholder {
+  id: string;
+  name: string;
+  role: string;
+  initials: string;
+  stance: StakeholderStance;
+  rationale: string;
+  avatarColor?: string;
+}
+
+export interface Amendment {
+  id: string;
+  version: string;
+  date: string;
+  author: string;
+  summary: string;
+  changes: string;
+}
+
+export interface ActualsData {
+  actualCapital: number;
+  actualPaybackMonths: number;
+  actualMetricValue: string;
+  capitalVariancePercent: number; // e.g. +24.6% or -4.2%
+  timeVarianceMonths: number; // e.g. +3
+}
+
 export interface OriginalEstimates {
   capitalAtRisk: number; // in USD
   expectedPaybackMonths: number;
@@ -42,6 +71,13 @@ export interface Decision {
   targetReviewDate: string; // ISO format: 'YYYY-MM-DD'
   originalEstimates: OriginalEstimates;
   
+  // Advanced Ledger Mechanics
+  version?: string; // e.g. 'v1.0 Frozen', 'v2.1 Amended'
+  versionStatus?: 'Frozen' | 'Amended' | 'Draft';
+  stakeholders?: Stakeholder[];
+  amendments?: Amendment[];
+  actuals?: ActualsData;
+
   // Strategic intelligence extensions
   hypothesis: string;
   category: 'Infrastructure' | 'Market Entry' | 'Vendor Migration' | 'Product Core' | 'Capital Allocation';
