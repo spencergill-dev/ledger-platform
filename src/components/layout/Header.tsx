@@ -1,15 +1,16 @@
 import { ThemeToggle } from '../ui/ThemeToggle';
 import { Button } from '../ui/Button';
-import { Plus, AlertTriangle, Layers } from 'lucide-react';
+import { Plus, AlertTriangle, Layers, Lock } from 'lucide-react';
 import { Tooltip } from '../ui/Tooltip';
 
 interface HeaderProps {
   onOpenNewDecision: () => void;
   overdueCount: number;
   totalCapital: number;
+  onLock?: () => void;
 }
 
-export function Header({ onOpenNewDecision, overdueCount, totalCapital }: HeaderProps) {
+export function Header({ onOpenNewDecision, overdueCount, totalCapital, onLock }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full bg-[#0B1121] border-b border-slate-800/80 shadow-md transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4 relative">
@@ -60,6 +61,19 @@ export function Header({ onOpenNewDecision, overdueCount, totalCapital }: Header
               <ThemeToggle />
             </div>
           </Tooltip>
+
+          {onLock && (
+            <Tooltip content="Lock platform session" position="bottom">
+              <button
+                type="button"
+                onClick={onLock}
+                className="h-9 w-9 flex items-center justify-center rounded-lg border border-slate-800 bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                aria-label="Lock platform"
+              >
+                <Lock className="h-3.5 w-3.5" />
+              </button>
+            </Tooltip>
+          )}
 
           <Tooltip content="Record a new strategic decision with immutable hypotheses and payoff criteria" position="bottom">
             <Button

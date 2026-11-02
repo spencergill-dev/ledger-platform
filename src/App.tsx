@@ -8,12 +8,16 @@ import { DecisionTable } from './components/dashboard/DecisionTable';
 import { NewDecisionModal } from './components/modals/NewDecisionModal';
 import { DecisionSidePanel } from './components/drawer/DecisionSidePanel';
 import { DecisionDeepDiveModal } from './components/modals/DecisionDeepDiveModal';
+import { PasswordGate } from './components/auth/PasswordGate';
 import { isPastDate } from './lib/utils';
 import { ShieldCheck } from 'lucide-react';
 
 import { Tooltip } from './components/ui/Tooltip';
 
 export function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('praxus_authenticated') === 'true';
+  });
   const [decisions, setDecisions] = useState<Decision[]>(MOCK_DECISIONS);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDecision, setSelectedDecision] = useState<Decision | null>(null);
@@ -49,6 +53,10 @@ export function App() {
     0
   );
 
+  if (!isAuthenticated) {
+    return <PasswordGate onUnlock={() => setIsAuthenticated(true)} />;
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#0A0A0A] text-foreground flex flex-col antialiased font-sans">
       {/* Solid Top Bar Header */}
@@ -56,6 +64,10 @@ export function App() {
         onOpenNewDecision={() => setIsModalOpen(true)}
         overdueCount={overdueCount}
         totalCapital={totalCapital}
+        onLock={() => {
+          localStorage.removeItem('praxus_authenticated');
+          setIsAuthenticated(false);
+        }}
       />
 
       {/* Main Icy Canvas Wrapper */}
