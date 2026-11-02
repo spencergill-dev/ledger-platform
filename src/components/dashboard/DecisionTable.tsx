@@ -360,13 +360,13 @@ export function DecisionTable({
                           {hasDrift && decision.actuals ? (
                             <div className="flex flex-col text-left font-sans">
                               {/* Strikethrough Original Baseline */}
-                              <span className="line-through text-slate-400 dark:text-slate-500 text-xs tabular-nums font-mono">
+                              <span className="line-through text-slate-400 dark:text-slate-500 text-xs tabular-nums">
                                 {formatCurrency(decision.originalEstimates.capitalAtRisk)} (Orig)
                               </span>
                               {/* Actual or Amended Value */}
                               <div className="flex items-baseline gap-1 mt-0.5">
                                 <span className={cn(
-                                  "font-bold text-sm tabular-nums font-mono",
+                                  "font-bold text-sm tabular-nums",
                                   decision.actuals.capitalVariancePercent > 10 
                                     ? "text-red-600 dark:text-red-400" 
                                     : "text-slate-900 dark:text-white"
@@ -388,7 +388,7 @@ export function DecisionTable({
                             </div>
                           ) : (
                             <div className="font-sans">
-                              <div className="font-bold text-slate-900 dark:text-white text-sm tabular-nums font-mono">
+                              <div className="font-bold text-slate-900 dark:text-white text-sm tabular-nums">
                                 {formatCurrency(decision.originalEstimates.capitalAtRisk)}
                               </div>
                               <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums">
@@ -408,12 +408,12 @@ export function DecisionTable({
                           {hasDrift && decision.actuals && isOverdue ? (
                             <div className="flex flex-col text-left font-sans">
                               {/* Strikethrough Original Horizon */}
-                              <span className="line-through text-slate-400 dark:text-slate-500 text-xs tabular-nums font-mono">
+                              <span className="line-through text-slate-400 dark:text-slate-500 text-xs tabular-nums">
                                 {decision.originalEstimates.expectedPaybackMonths}mo Horizon (Orig)
                               </span>
                               {/* Actual Time with Tag */}
                               <div className="flex items-baseline gap-1 mt-0.5">
-                                <span className="font-bold text-red-600 dark:text-red-400 text-sm tabular-nums font-mono">
+                                <span className="font-bold text-red-600 dark:text-red-400 text-sm tabular-nums">
                                   {decision.actuals.actualPaybackMonths}mo Horizon
                                 </span>
                                 <span className="text-[10px] font-semibold text-red-500 dark:text-red-400 font-sans tracking-wider uppercase">
@@ -426,7 +426,7 @@ export function DecisionTable({
                             </div>
                           ) : (
                             <div className="font-sans">
-                              <div className="font-bold text-slate-900 dark:text-white text-sm tabular-nums font-mono">
+                              <div className="font-bold text-slate-900 dark:text-white text-sm tabular-nums">
                                 {decision.originalEstimates.expectedPaybackMonths}mo Horizon
                               </div>
                               <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums truncate">
