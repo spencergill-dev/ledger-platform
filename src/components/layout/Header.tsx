@@ -33,7 +33,7 @@ export function Header({ onOpenNewDecision, overdueCount, totalCapital, onLock }
         {/* Quick Metrics Bar Centered in Header */}
         <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-3 px-3.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-xs text-slate-300 shadow-xs">
           <Tooltip content="Total financial capital currently committed across all strategic bets" position="bottom">
-            <div className="flex items-center gap-1.5 cursor-help">
+            <div className="flex items-center gap-1.5">
               <span className="text-slate-400 font-sans">Capital Committed:</span>
               <span className="font-bold tabular-nums text-white">
                 ${(totalCapital / 1000000).toFixed(2)}M
@@ -45,7 +45,7 @@ export function Header({ onOpenNewDecision, overdueCount, totalCapital, onLock }
             <>
               <span className="text-slate-700">•</span>
               <Tooltip content="Decisions that have breached the mandatory 6-month retrospective SLA window" position="bottom">
-                <div className="flex items-center gap-1.5 text-rose-400 font-medium text-xs cursor-help">
+                <div className="flex items-center gap-1.5 text-rose-400 font-medium text-xs">
                   <AlertTriangle className="h-3.5 w-3.5 text-rose-400 shrink-0" />
                   <span>{overdueCount} Overdue Retrospective{overdueCount > 1 ? 's' : ''}</span>
                 </div>

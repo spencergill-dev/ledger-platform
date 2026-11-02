@@ -333,7 +333,7 @@ export function DecisionTable({
                                   key={stk.id} 
                                   content={`${stk.name} (${stk.role}) • ${stk.stance.toUpperCase()}: "${stk.rationale}"`}
                                 >
-                                  <div className="relative inline-block cursor-help">
+                                  <div className="relative inline-block">
                                     <div className="flex h-4 w-4 items-center justify-center rounded-full text-[8px] font-bold bg-slate-100 text-slate-600 dark:bg-neutral-800 dark:text-slate-300 ring-1 ring-white dark:ring-[#171717] font-mono select-none">
                                       {stk.initials}
                                     </div>
@@ -448,7 +448,7 @@ export function DecisionTable({
                           </Badge>
                           {isOverdue && (
                             <Tooltip content={`Breached 6-month retrospective SLA by ${daysOverdue} days`}>
-                              <span className="inline-flex items-center justify-center w-[104px] h-6 px-2.5 py-0.5 rounded-md text-xs font-medium tabular-nums bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900/60 shrink-0 cursor-help font-sans shadow-2xs">
+                              <span className="inline-flex items-center justify-center w-[104px] h-6 px-2.5 py-0.5 rounded-md text-xs font-medium tabular-nums bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900/60 shrink-0 font-sans shadow-2xs">
                                 +{daysOverdue}d Delay
                               </span>
                             </Tooltip>

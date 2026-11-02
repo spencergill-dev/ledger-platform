@@ -20,7 +20,7 @@ export function RecentInsightsCard() {
           {/* Top line: Title + Headline + Source + Date */}
           <div className="flex flex-wrap items-center gap-2 text-xs">
             <Tooltip content="Synthesized organizational intelligence extracted from completed retrospective reviews">
-              <span className="font-bold text-slate-900 dark:text-white text-sm cursor-help">
+              <span className="font-bold text-slate-900 dark:text-white text-sm">
                 Compounding Decision Memory
               </span>
             </Tooltip>

@@ -34,7 +34,7 @@ export function StatCards({ decisions }: StatCardsProps) {
         {/* Total Capital at Risk */}
         <div className="p-4 sm:p-5 transition-colors">
           <Tooltip content="Total capital at risk deployed across active strategic commitments">
-            <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 text-xs font-medium cursor-help">
+            <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 text-xs font-medium">
               <DollarSign className="h-4 w-4 text-slate-500 dark:text-slate-400" />
               <span>Capital Committed</span>
             </div>
@@ -52,20 +52,20 @@ export function StatCards({ decisions }: StatCardsProps) {
         {/* Time at Risk & Overdue Retrospectives Card */}
         <div className="p-4 sm:p-5 transition-colors">
           <Tooltip content="Maximum days elapsed beyond the mandatory 6-month retrospective deadline">
-            <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 text-xs font-medium cursor-help">
+            <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 text-xs font-medium">
               <Clock className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0" />
               <span>Time at Risk (Overdue)</span>
             </div>
           </Tooltip>
           <div className="mt-2 flex items-baseline gap-2">
             <Tooltip content={`${overdueCount} decisions breached their review date by up to ${maxDaysOverdue} days`}>
-              <span className="text-2xl font-bold text-red-600 dark:text-red-400 cursor-help font-cal">
+              <span className="text-2xl font-bold text-red-600 dark:text-red-400 font-cal">
                 {overdueCount > 0 ? `+${maxDaysOverdue}d` : '0d'}
               </span>
             </Tooltip>
             {overdueCount > 0 && (
               <Tooltip content="Sponsor retrospective review overdue; executive action required">
-                <span className="inline-flex items-center gap-1 text-[11px] font-medium text-red-600 bg-red-50 border border-red-200/60 dark:bg-red-950/60 dark:text-red-300 dark:border-red-900/60 px-1.5 py-0.5 rounded cursor-help font-sans">
+                <span className="inline-flex items-center gap-1 text-[11px] font-medium text-red-600 bg-red-50 border border-red-200/60 dark:bg-red-950/60 dark:text-red-300 dark:border-red-900/60 px-1.5 py-0.5 rounded font-sans">
                   <AlertTriangle className="h-3 w-3 text-red-500 dark:text-red-400 shrink-0" />
                   Action Required
                 </span>
@@ -82,7 +82,7 @@ export function StatCards({ decisions }: StatCardsProps) {
         {/* Active Strategic Bets */}
         <div className="p-4 sm:p-5 transition-colors">
           <Tooltip content="Decisions currently in execution phase awaiting retrospective review">
-            <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 text-xs font-medium cursor-help">
+            <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 text-xs font-medium">
               <Layers className="h-4 w-4 text-blue-500 dark:text-blue-400 shrink-0" />
               <span>Active Decisions</span>
             </div>
@@ -101,7 +101,7 @@ export function StatCards({ decisions }: StatCardsProps) {
         {/* Completed Retrospectives */}
         <div className="p-4 sm:p-5 transition-colors">
           <Tooltip content="Decisions that have completed full retrospective analysis and archived their learnings">
-            <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 text-xs font-medium cursor-help">
+            <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 text-xs font-medium">
               <ShieldCheck className="h-4 w-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
               <span>Completed Learnings</span>
             </div>
@@ -111,7 +111,7 @@ export function StatCards({ decisions }: StatCardsProps) {
               {reviewedCount}
             </span>
             <Tooltip content="All archived decisions completed rigorous hypothesis vs outcome variance audits">
-              <span className="text-[11px] text-purple-700 dark:text-purple-300 font-semibold bg-purple-50 border border-purple-200/60 dark:bg-purple-950/60 px-1.5 py-0.5 rounded cursor-help font-sans">
+              <span className="text-[11px] text-purple-700 dark:text-purple-300 font-semibold bg-purple-50 border border-purple-200/60 dark:bg-purple-950/60 px-1.5 py-0.5 rounded font-sans">
                 100% Audited
               </span>
             </Tooltip>

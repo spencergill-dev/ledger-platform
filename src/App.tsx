@@ -85,7 +85,7 @@ export function App() {
                 Strategic Decisions Feed
               </h1>
               <Tooltip content="All hypotheses, metrics, and counterfactuals are cryptographically timestamped and immutable">
-                <span className="inline-flex items-center gap-1 rounded bg-emerald-100/80 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 text-xs font-medium font-sans cursor-help">
+                <span className="inline-flex items-center gap-1 rounded bg-emerald-100/80 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 text-xs font-medium font-sans">
                   ✓ Audit Trail Active
                 </span>
               </Tooltip>
@@ -94,7 +94,7 @@ export function App() {
 
           <div className="hidden sm:block text-xs font-sans shrink-0">
             <Tooltip content="Automated 6-month retrospective cadence requiring executive sign-off on metric variance">
-              <span className="inline-flex items-center rounded-md border border-slate-200 dark:border-neutral-700 bg-white dark:bg-[#171717] px-3 py-1.5 font-medium text-slate-800 dark:text-slate-200 cursor-help shadow-2xs">
+              <span className="inline-flex items-center rounded-md border border-slate-200 dark:border-neutral-700 bg-white dark:bg-[#171717] px-3 py-1.5 font-medium text-slate-800 dark:text-slate-200 shadow-2xs">
                 Forced Retrospective Protocol v2.4
               </span>
             </Tooltip>
