@@ -74,8 +74,8 @@ export function App() {
       <div className="flex-1 bg-slate-50 dark:bg-[#0A0A0A] w-full">
         <main className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-7 pb-12 space-y-6">
         
-        {/* Title Header with crisp flat border */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-300 dark:border-neutral-800 pb-4">
+        {/* Title Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="font-mono text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-medium mb-1">
               PORTFOLIO GOVERNANCE // AUDIT LEDGER
