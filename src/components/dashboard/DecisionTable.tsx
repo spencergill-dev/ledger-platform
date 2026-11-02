@@ -936,17 +936,16 @@ export function DecisionTable({
                         </td>
                       )}
 
-                      {/* Column 5: Status (Right-Aligned with matching pill styles) */}
+                      {/* Column 5: Status (Right-Aligned with single status pill and clean secondary delay subtext) */}
                       <td className="py-3.5 px-4 text-right whitespace-nowrap align-middle">
-                        <div className="flex flex-col items-end gap-1.5">
+                        <div className="inline-flex flex-col items-center">
                           <Badge status={decision.status}>
                             {decision.status}
                           </Badge>
                           {isOverdue && (
                             <Tooltip content={`Breached 6-month retrospective SLA by ${daysOverdue} days`}>
-                              <span className="inline-flex items-center justify-center gap-1 w-[108px] h-6 px-2 py-0.5 rounded-badge text-xs font-medium tabular-nums bg-status-overdue-bg text-status-overdue-text border border-status-overdue-border shrink-0 font-sans shadow-2xs select-none">
-                                <span className="font-semibold">+{daysOverdue}d</span>
-                                <span>Delay</span>
+                              <span className="text-xs font-medium text-status-overdue-text dark:text-rose-400 tabular-nums font-sans mt-1 block select-none cursor-default">
+                                +{daysOverdue}d Delay
                               </span>
                             </Tooltip>
                           )}
