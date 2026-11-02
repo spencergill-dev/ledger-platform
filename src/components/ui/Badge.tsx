@@ -23,10 +23,16 @@ export function Badge({
   ...props
 }: BadgeProps) {
   if (status) {
-    // 1. Uniform neutral gray background with subtle border
-    const wrapperStyle = "bg-slate-100 dark:bg-neutral-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-neutral-700";
+    // Soft semantic background tint with subtle matching border per state
+    const statusStyles: Record<DecisionStatus, string> = {
+      'Review Due': 'bg-status-overdue-bg text-status-overdue-text border border-status-overdue-border',
+      'Approved': 'bg-status-approved-bg text-status-approved-text border border-status-approved-border',
+      'In Progress': 'bg-status-inprogress-bg text-status-inprogress-text border border-status-inprogress-border',
+      'Reviewed': 'bg-status-reviewed-bg text-status-reviewed-text border border-status-reviewed-border',
+      'Draft': 'bg-surface-muted text-content-secondary border border-subtle',
+    };
 
-    // 2. Semantic Lucide icons with subtle state-colored stroke
+    // Semantic Lucide icons with matching status colors
     const getStatusIcon = (st: DecisionStatus) => {
       switch (st) {
         case 'Review Due':
@@ -47,7 +53,7 @@ export function Badge({
       <span
         className={cn(
           "inline-flex items-center justify-center gap-1.5 w-[108px] h-6 px-2 py-0.5 rounded-badge text-xs font-medium tracking-normal shrink-0 font-sans shadow-2xs select-none",
-          wrapperStyle,
+          statusStyles[status],
           className
         )}
         {...props}

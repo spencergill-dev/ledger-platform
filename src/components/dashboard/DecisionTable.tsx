@@ -937,8 +937,8 @@ export function DecisionTable({
                           </Badge>
                           {isOverdue && (
                             <Tooltip content={`Breached 6-month retrospective SLA by ${daysOverdue} days`}>
-                              <span className="inline-flex items-center justify-center gap-1 w-[108px] h-6 px-2 py-0.5 rounded-badge text-xs font-medium tabular-nums bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-neutral-700 shrink-0 font-sans shadow-2xs select-none">
-                                <span className="text-red-600 dark:text-red-400 font-semibold">+{daysOverdue}d</span>
+                              <span className="inline-flex items-center justify-center gap-1 w-[108px] h-6 px-2 py-0.5 rounded-badge text-xs font-medium tabular-nums bg-status-overdue-bg text-status-overdue-text border border-status-overdue-border shrink-0 font-sans shadow-2xs select-none">
+                                <span className="font-semibold">+{daysOverdue}d</span>
                                 <span>Delay</span>
                               </span>
                             </Tooltip>
