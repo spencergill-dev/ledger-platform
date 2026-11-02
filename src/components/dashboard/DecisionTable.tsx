@@ -365,21 +365,11 @@ export function DecisionTable({
                               </span>
                               {/* Actual or Amended Value */}
                               <div className="flex items-baseline gap-1 mt-0.5">
-                                <span className={cn(
-                                  "font-bold text-sm tabular-nums",
-                                  decision.actuals.capitalVariancePercent > 10 
-                                    ? "text-red-600 dark:text-red-400" 
-                                    : "text-slate-900 dark:text-white"
-                                )}>
+                                <span className="font-semibold text-slate-900 dark:text-white text-sm tabular-nums">
                                   {formatCurrency(decision.actuals.actualCapital)}
                                 </span>
-                                <span className={cn(
-                                  "text-[10px] font-semibold font-sans tracking-wider uppercase",
-                                  decision.actuals.capitalVariancePercent > 10 
-                                    ? "text-red-500 dark:text-red-400" 
-                                    : "text-slate-400 dark:text-slate-500"
-                                )}>
-                                  ({decision.version?.toLowerCase().includes('amended') && !isOverdue ? 'AMENDED' : 'ACTUAL'})
+                                <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 tracking-wider uppercase">
+                                  ({decision.version?.toLowerCase().includes('amended') && !isOverdue ? 'Amended' : 'Actual'})
                                 </span>
                               </div>
                               <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums">
@@ -388,7 +378,7 @@ export function DecisionTable({
                             </div>
                           ) : (
                             <div className="font-sans">
-                              <div className="font-bold text-slate-900 dark:text-white text-sm tabular-nums">
+                              <div className="font-semibold text-slate-900 dark:text-white text-sm tabular-nums">
                                 {formatCurrency(decision.originalEstimates.capitalAtRisk)}
                               </div>
                               <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums">
@@ -413,11 +403,11 @@ export function DecisionTable({
                               </span>
                               {/* Actual Time with Tag */}
                               <div className="flex items-baseline gap-1 mt-0.5">
-                                <span className="font-bold text-red-600 dark:text-red-400 text-sm tabular-nums">
+                                <span className="font-semibold text-slate-900 dark:text-white text-sm tabular-nums">
                                   {decision.actuals.actualPaybackMonths}mo Horizon
                                 </span>
-                                <span className="text-[10px] font-semibold text-red-500 dark:text-red-400 font-sans tracking-wider uppercase">
-                                  (ACTUAL)
+                                <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 tracking-wider uppercase">
+                                  (Actual)
                                 </span>
                               </div>
                               <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums truncate">
@@ -426,7 +416,7 @@ export function DecisionTable({
                             </div>
                           ) : (
                             <div className="font-sans">
-                              <div className="font-bold text-slate-900 dark:text-white text-sm tabular-nums">
+                              <div className="font-semibold text-slate-900 dark:text-white text-sm tabular-nums">
                                 {decision.originalEstimates.expectedPaybackMonths}mo Horizon
                               </div>
                               <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums truncate">
