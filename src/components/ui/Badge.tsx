@@ -17,11 +17,11 @@ export function Badge({
 }: BadgeProps) {
   if (status) {
     const statusStyles: Record<DecisionStatus, string> = {
-      'Draft': 'bg-[#F1F5F9] text-[#475569] dark:bg-neutral-800/60 dark:text-neutral-300',
-      'Approved': 'bg-[#D1FAE5] text-[#065F46] dark:bg-emerald-950/40 dark:text-emerald-300',
-      'In Progress': 'bg-[#DBEAFE] text-[#1E40AF] dark:bg-blue-950/40 dark:text-blue-300',
-      'Review Due': 'bg-[#FEF3C7] text-[#92400E] dark:bg-amber-950/40 dark:text-amber-300',
-      'Reviewed': 'bg-[#F3E8FF] text-[#6B21A8] dark:bg-purple-950/40 dark:text-purple-300',
+      'Draft': 'bg-slate-50 text-slate-700 border border-slate-200 dark:bg-neutral-800/60 dark:border-neutral-700 dark:text-neutral-300',
+      'Approved': 'bg-emerald-50 text-emerald-800 border border-emerald-200/80 dark:bg-emerald-950/40 dark:border-emerald-800/60 dark:text-emerald-300',
+      'In Progress': 'bg-blue-50 text-blue-800 border border-blue-200/80 dark:bg-blue-950/40 dark:border-blue-800/60 dark:text-blue-300',
+      'Review Due': 'bg-amber-50 text-amber-800 border border-amber-200/80 dark:bg-amber-950/40 dark:border-amber-800/60 dark:text-amber-300',
+      'Reviewed': 'bg-purple-50 text-purple-800 border border-purple-200/80 dark:bg-purple-950/40 dark:border-purple-800/60 dark:text-purple-300',
     };
 
     const dotColors: Record<DecisionStatus, string> = {
@@ -35,7 +35,7 @@ export function Badge({
     return (
       <span
         className={cn(
-          "inline-flex items-center justify-center gap-1.5 w-[108px] h-6 px-2.5 py-0.5 rounded-full text-xs font-medium tracking-normal shrink-0",
+          "inline-flex items-center justify-center gap-1.5 w-[104px] h-6 px-2.5 py-0.5 rounded-md text-xs font-medium tracking-normal shrink-0 font-sans shadow-2xs",
           statusStyles[status],
           className
         )}
@@ -50,15 +50,15 @@ export function Badge({
   const variantStyles: Record<NonNullable<BadgeProps['variant']>, string> = {
     default: 'bg-primary text-primary-foreground',
     secondary: 'bg-secondary text-secondary-foreground',
-    outline: 'text-foreground border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700',
+    outline: 'text-foreground border border-slate-200 bg-white dark:bg-neutral-800 dark:border-neutral-700',
     destructive: 'bg-red-50 text-red-700 border border-red-200 dark:bg-red-950/40 dark:text-red-300 dark:border-red-900/60 font-medium',
-    overdue: 'bg-red-50 text-red-700 border border-red-200 dark:bg-red-950/40 dark:text-red-300 dark:border-red-900/60 font-medium',
+    overdue: 'bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900/60 font-medium',
   };
 
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium",
+        "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-medium font-sans",
         variantStyles[variant],
         className
       )}
