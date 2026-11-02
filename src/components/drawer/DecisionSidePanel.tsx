@@ -239,7 +239,7 @@ export function DecisionSidePanel({
                     <span>Capital Allocation</span>
                     <DollarSign className="h-4 w-4 text-gray-400" />
                   </div>
-                  <div className="text-xl font-bold text-gray-900 dark:text-white tabular-nums tracking-tight font-cal">
+                  <div className="text-xl font-bold text-gray-900 dark:text-white tracking-tight font-cal">
                     {formatCurrency(decision.originalEstimates.capitalAtRisk)}
                   </div>
                   <div className="text-[11px] text-gray-500 dark:text-gray-400 truncate">
@@ -253,7 +253,7 @@ export function DecisionSidePanel({
                     <span>Time Allocation</span>
                     <Clock className="h-4 w-4 text-gray-400" />
                   </div>
-                  <div className="text-xl font-bold text-gray-900 dark:text-white tabular-nums tracking-tight font-cal">
+                  <div className="text-xl font-bold text-gray-900 dark:text-white tracking-tight font-cal">
                     {decision.originalEstimates.expectedPaybackMonths} Months
                   </div>
                   {isOverdue ? (
