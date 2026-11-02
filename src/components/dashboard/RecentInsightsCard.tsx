@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { MOCK_RECENT_INSIGHTS } from '../../data/mockData';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Sparkles } from 'lucide-react';
 
 export function RecentInsightsCard() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeInsight = MOCK_RECENT_INSIGHTS[activeIndex];
 
   return (
-    <div className="rounded-md border border-slate-200 dark:border-neutral-800 border-l-4 border-l-blue-600 dark:border-l-blue-500 bg-white dark:bg-[#171717] p-4 transition-colors shadow-2xs space-y-2">
-      {/* Top line: Bold Title + Muted Upper Kicker */}
+    <div className="rounded-md border border-indigo-100/90 dark:border-indigo-900/40 bg-indigo-50/30 dark:bg-indigo-950/20 p-4 transition-colors shadow-2xs space-y-2">
+      {/* Top line: Inline System Icon + Bold Title + Muted Upper Kicker */}
       <div className="flex flex-wrap items-center gap-2">
+        <Sparkles className="h-4 w-4 text-indigo-500 dark:text-indigo-400 shrink-0" />
         <span className="font-bold text-slate-900 dark:text-white text-sm font-sans">
           Compounding Decision Memory
         </span>
@@ -18,9 +19,9 @@ export function RecentInsightsCard() {
         </span>
       </div>
 
-      {/* Insight Directive */}
-      <p className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 font-normal leading-relaxed font-sans">
-        "{activeInsight.insight}"
+      {/* Main Synthesized System Insight */}
+      <p className="text-sm font-medium text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
+        {activeInsight.insight}
       </p>
 
       {/* Micro-footer: Relocated Source Metadata (Left) + Pagination (Right) */}
