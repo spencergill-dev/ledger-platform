@@ -27,7 +27,9 @@ import {
   UserCheck,
   TrendingUp,
   Activity,
-  Send
+  Send,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -56,6 +58,7 @@ export function DecisionSidePanel({
   const [newNote, setNewNote] = useState('');
   const [activeTimelineStep, setActiveTimelineStep] = useState<number | null>(null);
   const [notes, setNotes] = useState<ActivityNote[]>([]);
+  const [isActivityExpanded, setIsActivityExpanded] = useState(false);
 
   // ESC key listener to close drawer
   useEffect(() => {
@@ -83,6 +86,7 @@ export function DecisionSidePanel({
   // Initialize or reset activity notes based on the selected decision
   useEffect(() => {
     if (!decision) return;
+    setIsActivityExpanded(false);
 
     const isOverdue = decision.status === 'Review Due' && isPastDate(decision.targetReviewDate);
     const daysOverdue = isOverdue ? getDaysOverdue(decision.targetReviewDate) : 0;
@@ -787,15 +791,26 @@ export function DecisionSidePanel({
               </div>
 
               {/* SECTION: ACTIVITY & LIVE NOTES */}
-              <div className="pt-4 border-t border-slate-200 dark:border-neutral-800 space-y-3">
+              <div className="pt-4 border-t border-subtle space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono text-[10px]">
-                    <Activity className="h-3.5 w-3.5 text-slate-400" />
+                  <div className="flex items-center gap-1.5 font-semibold uppercase tracking-wider text-content-muted font-mono text-[10px]">
+                    <Activity className="h-3.5 w-3.5 text-content-faint" />
                     <span>ACTIVITY & PROGRESS TRACKING</span>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-400 font-sans">
-                    {notes.length} logged entries
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono text-content-faint font-sans">
+                      {notes.length} logged {notes.length === 1 ? 'entry' : 'entries'}
+                    </span>
+                    {notes.length > 3 && (
+                      <button
+                        type="button"
+                        onClick={() => setIsActivityExpanded(!isActivityExpanded)}
+                        className="text-[11px] font-medium text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                      >
+                        {isActivityExpanded ? 'Collapse' : 'View all'}
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {/* Input Field: Add Progress Note */}
@@ -806,12 +821,12 @@ export function DecisionSidePanel({
                       value={newNote}
                       onChange={(e) => setNewNote(e.target.value)}
                       placeholder="Add Progress Note / Update Track..."
-                      className="w-full h-8 pl-3 pr-16 rounded-md border border-slate-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-slate-400 transition-colors font-sans"
+                      className="w-full h-8 pl-3 pr-16 rounded-md border border-subtle bg-surface-subtle text-xs text-content-primary placeholder:text-content-faint focus:outline-none focus:border-border-strong transition-colors font-sans"
                     />
                     <button
                       type="submit"
                       disabled={!newNote.trim()}
-                      className="absolute right-1 top-1 h-6 px-2 rounded bg-slate-900 dark:bg-white text-white dark:text-slate-900 disabled:opacity-40 text-xs font-medium inline-flex items-center gap-1 transition-all"
+                      className="absolute right-1 top-1 h-6 px-2.5 rounded bg-slate-900 dark:bg-white text-white dark:text-slate-900 disabled:opacity-40 text-xs font-medium inline-flex items-center gap-1 transition-all cursor-pointer"
                     >
                       <span>Post</span>
                       <Send className="h-2.5 w-2.5" />
@@ -819,9 +834,9 @@ export function DecisionSidePanel({
                   </div>
                 </form>
 
-                {/* Feed of Notes */}
-                <div className="space-y-2 max-h-52 overflow-y-auto pr-1">
-                  {notes.map((note) => (
+                {/* Feed of Notes (No nested scroll trap: renders complete cards with natural expansion) */}
+                <div className="space-y-2">
+                  {(isActivityExpanded ? notes : notes.slice(0, 3)).map((note) => (
                     <div
                       key={note.id}
                       className={cn(
@@ -830,29 +845,63 @@ export function DecisionSidePanel({
                           ? "bg-rose-50/70 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/60"
                           : note.tag === 'audit'
                           ? "bg-purple-50/50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-900/60"
-                          : "bg-white dark:bg-neutral-900 border-slate-200 dark:border-neutral-800"
+                          : "bg-surface-subtle border-subtle"
                       )}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1.5">
                           <span className={cn(
                             "font-semibold tracking-tight font-sans",
-                            note.tag === 'warning' ? "text-rose-700 dark:text-rose-300" : "text-slate-900 dark:text-white"
+                            note.tag === 'warning' ? "text-rose-700 dark:text-rose-300" : "text-content-primary"
                           )}>
                             {note.author}
                           </span>
-                          <span className="text-[10px] text-slate-400 font-sans">• {note.role}</span>
+                          <span className="text-[10px] text-content-muted font-sans">• {note.role}</span>
                         </div>
-                        <span className="text-[10px] text-slate-400 font-mono">{note.date}</span>
+                        <span className="text-[10px] text-content-faint font-mono">{note.date}</span>
                       </div>
                       <p className={cn(
                         "leading-relaxed font-sans text-xs",
-                        note.tag === 'warning' ? "text-rose-900 dark:text-rose-200 font-medium" : "text-slate-600 dark:text-slate-300"
+                        note.tag === 'warning' ? "text-rose-900 dark:text-rose-200 font-medium" : "text-content-secondary"
                       )}>
                         {note.text}
                       </p>
                     </div>
                   ))}
+                </div>
+
+                {/* View More / Show Less Toggle Button */}
+                {notes.length > 3 && (
+                  <button
+                    type="button"
+                    onClick={() => setIsActivityExpanded(!isActivityExpanded)}
+                    className="w-full py-2 px-3 rounded-md border border-subtle bg-surface-subtle hover:bg-surface-hover text-xs font-medium text-content-secondary hover:text-content-primary flex items-center justify-center gap-1.5 transition-colors shadow-2xs select-none cursor-pointer"
+                  >
+                    {isActivityExpanded ? (
+                      <>
+                        <span>Show fewer updates</span>
+                        <ChevronUp className="h-3.5 w-3.5 text-content-faint" />
+                      </>
+                    ) : (
+                      <>
+                        <span>View all {notes.length} updates</span>
+                        <span className="text-[10px] text-content-faint font-mono">({notes.length - 3} older)</span>
+                        <ChevronDown className="h-3.5 w-3.5 text-content-faint" />
+                      </>
+                    )}
+                  </button>
+                )}
+
+                {/* Dossier Audit Link */}
+                <div className="pt-1 text-center">
+                  <button
+                    type="button"
+                    onClick={() => onOpenDeepDive(decision)}
+                    className="text-[11px] font-medium text-content-muted hover:text-content-primary hover:underline transition-colors inline-flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>View full history & audit dossier</span>
+                    <ArrowRight className="h-3 w-3 text-content-faint" />
+                  </button>
                 </div>
               </div>
 
