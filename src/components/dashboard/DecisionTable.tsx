@@ -265,7 +265,7 @@ export function DecisionTable({
           className="relative z-30 p-2.5 sm:p-3 border-b border-subtle flex flex-wrap items-center gap-2 bg-surface rounded-t-md"
         >
           {/* Search Input */}
-          <div className="relative flex items-center shrink-0 w-36 sm:w-44 md:w-52">
+          <div className="relative flex items-center flex-1 sm:flex-initial min-w-[140px] sm:w-44 md:w-52">
             <Search className="absolute left-2.5 h-3.5 w-3.5 text-content-faint pointer-events-none" />
             <input
               type="text"
@@ -582,7 +582,7 @@ export function DecisionTable({
             </button>
 
             {openDropdown === 'capital' && (
-              <div className="absolute left-0 mt-1.5 w-56 rounded-md border border-subtle bg-surface-elevated shadow-elevated py-1 z-50">
+              <div className="absolute right-0 sm:left-0 sm:right-auto mt-1.5 w-56 rounded-md border border-subtle bg-surface-elevated shadow-elevated py-1 z-50">
                 <div className="px-3 py-1.5 text-[10px] font-semibold text-content-faint uppercase tracking-wider border-b border-border-muted flex items-center justify-between">
                   <span>Committed Capital</span>
                   {capitalFilter !== 'ALL' && (
@@ -675,21 +675,30 @@ export function DecisionTable({
           </div>
         </div>
 
-        {/* Flush Table: Fluid width with edge-to-edge layout */}
+        {/* Flush Table: Fluid width with edge-to-edge layout and horizontal scroll protection */}
         <div className="w-full overflow-x-auto rounded-b-md">
-          <table className="w-full text-left text-xs border-collapse table-fixed">
+          <table className={cn(
+            "w-full text-left text-xs border-collapse table-fixed",
+            resourceView === 'both' ? "min-w-[940px]" : "min-w-[780px]"
+          )}>
             <thead>
               <tr className="border-b border-subtle bg-surface-muted/50">
-                <th className="py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary w-[36%] text-left">
+                <th className={cn(
+                  "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-left",
+                  resourceView === 'both' ? "w-[34%] min-w-[280px]" : "w-[40%] min-w-[300px]"
+                )}>
                   DECISION & HYPOTHESIS
                 </th>
-                <th className="py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary w-[18%] text-left">
+                <th className={cn(
+                  "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-left",
+                  resourceView === 'both' ? "w-[20%] min-w-[180px]" : "w-[24%] min-w-[190px]"
+                )}>
                   OWNER & STAKEHOLDERS
                 </th>
                 {showCapital && (
                   <th className={cn(
                     "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-left whitespace-nowrap",
-                    resourceView === 'both' ? "w-[16%]" : "w-[24%]"
+                    resourceView === 'both' ? "w-[16%] min-w-[150px]" : "w-[20%] min-w-[150px]"
                   )}>
                     CAPITAL INVESTMENT
                   </th>
@@ -697,14 +706,14 @@ export function DecisionTable({
                 {showTime && (
                   <th className={cn(
                     "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-left whitespace-nowrap",
-                    resourceView === 'both' ? "w-[16%]" : "w-[24%]"
+                    resourceView === 'both' ? "w-[16%] min-w-[150px]" : "w-[20%] min-w-[150px]"
                   )}>
                     TIME INVESTMENT
                   </th>
                 )}
                 <th className={cn(
-                    "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-right",
-                  resourceView === 'both' ? "w-[14%]" : "w-[22%]"
+                  "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-right whitespace-nowrap",
+                  resourceView === 'both' ? "w-[14%] min-w-[140px]" : "w-[16%] min-w-[140px]"
                 )}>
                   STATUS
                 </th>
@@ -746,8 +755,8 @@ export function DecisionTable({
                     >
                       {/* Column 1: Title, Hypothesis & Versioning Badges */}
                       <td className={cn(
-                        "py-3.5 px-4 w-[36%] align-middle border-l-4 transition-all",
-                        isSelected ? "border-l-4 border-blue-600" : "border-l-4 border-l-transparent"
+                        "py-3.5 px-4 align-middle border-l-4 transition-all",
+                        isSelected ? "border-l-blue-600" : "border-l-transparent"
                       )}>
                         <div className="flex items-center gap-2 text-xs flex-wrap">
                           <span className="font-mono font-medium tracking-normal text-content-faint text-xs tabular-nums">
@@ -798,7 +807,7 @@ export function DecisionTable({
                       </td>
 
                       {/* Column 2: Owner & Stakeholders */}
-                      <td className="py-3.5 px-4 w-[18%] align-middle">
+                      <td className="py-3.5 px-4 align-middle">
                         <div className="flex items-start gap-2.5">
                           {/* Main Owner Profile Avatar */}
                           <div className={cn(
@@ -859,10 +868,7 @@ export function DecisionTable({
 
                       {/* Column 3: Capital Investment */}
                       {showCapital && (
-                        <td className={cn(
-                          "py-3.5 px-4 text-left whitespace-nowrap align-middle",
-                          resourceView === 'both' ? "w-[16%]" : "w-[24%]"
-                        )}>
+                        <td className="py-3.5 px-4 text-left whitespace-nowrap align-middle">
                           {hasDrift && decision.actuals ? (
                             <div className="flex flex-col text-left font-sans">
                               {/* Strikethrough Original Baseline */}
@@ -897,10 +903,7 @@ export function DecisionTable({
 
                       {/* Column 4: Time Investment */}
                       {showTime && (
-                        <td className={cn(
-                          "py-3.5 px-4 text-left whitespace-nowrap align-middle",
-                          resourceView === 'both' ? "w-[16%]" : "w-[24%]"
-                        )}>
+                        <td className="py-3.5 px-4 text-left whitespace-nowrap align-middle">
                           {hasDrift && decision.actuals && isOverdue ? (
                             <div className="flex flex-col text-left font-sans">
                               {/* Strikethrough Original Horizon */}
@@ -934,10 +937,7 @@ export function DecisionTable({
                       )}
 
                       {/* Column 5: Status (Right-Aligned with matching pill styles) */}
-                      <td className={cn(
-                        "py-3.5 px-4 text-right whitespace-nowrap align-middle",
-                        resourceView === 'both' ? "w-[14%]" : "w-[22%]"
-                      )}>
+                      <td className="py-3.5 px-4 text-right whitespace-nowrap align-middle">
                         <div className="flex flex-col items-end gap-1.5">
                           <Badge status={decision.status}>
                             {decision.status}
