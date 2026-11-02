@@ -1,4 +1,24 @@
-/** @type {import('tailwindcss').Config} */
+/** 
+ * DECIDEOS DESIGN TOKEN SYSTEM — INSTRUCTIONS FOR AI ASSISTANTS & DEVELOPERS
+ * 
+ * CRITICAL ARCHITECTURAL RULE:
+ * To tweak contrast, change dark mode depth, or adjust borders in the future,
+ * you no longer need to edit dozens of individual component files. Simply modify
+ * the CSS variables in src/index.css or the token definitions in tailwind.config.js.
+ * All cards, tables, text elements, and badges across the application will update
+ * automatically.
+ * 
+ * Always use semantic utility classes in components:
+ * - Surfaces: bg-surface, bg-surface-subtle, bg-surface-muted, bg-surface-elevated
+ * - Borders: border-subtle, border-muted, border-strong
+ * - Content / Text: text-content-primary, text-content-secondary, text-content-muted, text-content-faint
+ * - Status: bg-status-*, text-status-*, border-status-*
+ * 
+ * Do NOT introduce hardcoded ad-hoc palette colors (e.g. text-slate-700, bg-slate-100)
+ * in component files when semantic tokens exist.
+ * 
+ * @type {import('tailwindcss').Config} 
+ */
 export default {
   darkMode: 'class',
   content: [

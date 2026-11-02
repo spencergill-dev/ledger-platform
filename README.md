@@ -19,11 +19,23 @@ Companies make massive $500k+ bets (market entries, vendor migrations, architect
 
 ### Stack & Architecture
 - **Framework**: React 19 + TypeScript + Vite
-- **Styling**: Tailwind CSS with custom HSL design tokens
+- **Styling**: Tailwind CSS with custom semantic design tokens (`src/index.css` & `tailwind.config.js`)
 - **Micro-Interactions**: Framer Motion
 - **Icons**: Lucide React
 - **Theme**: Dark/Light mode toggle with persistence and system preference sync
 - **Data Layer**: Strongly-typed `Decision` schema in `src/types/decision.ts` and seeded in `src/data/mockData.ts`
+
+---
+
+### Design Token Architecture (Rules for AI & Developers)
+To tweak contrast, change dark mode depth, or adjust borders in the future, you no longer need to edit dozens of individual component files. Simply modify the CSS variables in `src/index.css` or the token definitions in `tailwind.config.js`. All cards, tables, text elements, and badges across the application will update automatically.
+
+- **Surfaces**: `bg-surface-page`, `bg-surface` (`bg-surface-card`), `bg-surface-subtle`, `bg-surface-muted`, `bg-surface-elevated`, `bg-surface-hover`
+- **Borders**: `border-subtle`, `border-muted`, `border-strong`
+- **Typography**: `text-content-primary`, `text-content-secondary`, `text-content-muted`, `text-content-faint`
+- **Status Badges**: Use `<Badge status={decision.status} />` from `src/components/ui/Badge.tsx`.
+- **Department Avatars**: Use `getDepartmentAvatarStyle(role, category)` in `src/lib/utils.ts`.
+- See `AGENTS.md` and `GEMINI.md` for full instructions.
 
 ---
 
