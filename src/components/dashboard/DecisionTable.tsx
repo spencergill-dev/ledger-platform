@@ -435,42 +435,34 @@ export function DecisionTable({
                               {decision.owner.role}
                             </div>
 
-                            {/* Stakeholders mini-avatars cluster (16px / h-4 w-4) with consensus status dot */}
+                            {/* Stakeholders mini-avatars cluster (muted uniform bg-slate-100 text-slate-500 border-2 border-white with 6px status micro-dots) */}
                             {decision.stakeholders && decision.stakeholders.length > 0 && (
-                              <div className="flex items-center gap-1.5 mt-1.5">
-                                <div className="flex items-center -space-x-1">
-                                  {decision.stakeholders.map((stk) => {
-                                    const dotColor = 
-                                      stk.stance === 'dissent' ? 'bg-red-500' :
-                                      stk.stance === 'conditions' ? 'bg-amber-400' :
-                                      '';
+                              <div className="flex items-center -space-x-1 mt-1.5">
+                                {decision.stakeholders.map((stk) => {
+                                  const dotColor = 
+                                    stk.stance === 'dissent' ? 'bg-red-500' :
+                                    stk.stance === 'conditions' ? 'bg-amber-500' :
+                                    '';
 
-                                    return (
-                                      <Tooltip 
-                                        key={stk.id} 
-                                        content={`${stk.name} (${stk.role}) • ${stk.stance.toUpperCase()}: "${stk.rationale}"`}
-                                      >
-                                        <div className="relative inline-block">
-                                          <div className={cn(
-                                            "flex h-4 w-4 items-center justify-center rounded-full text-[8px] font-bold text-white ring-1 ring-white dark:ring-[#171717] font-sans select-none shadow-2xs",
-                                            getStakeholderAvatarStyle(stk)
-                                          )}>
-                                            {stk.initials}
-                                          </div>
-                                          {dotColor && (
-                                            <span className={cn(
-                                              "absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full ring-1 ring-white dark:ring-[#171717]",
-                                              dotColor
-                                            )} />
-                                          )}
+                                  return (
+                                    <Tooltip 
+                                      key={stk.id} 
+                                      content={`${stk.name} (${stk.role}) • ${stk.stance.toUpperCase()}: "${stk.rationale}"`}
+                                    >
+                                      <div className="relative inline-block">
+                                        <div className="flex h-4 w-4 items-center justify-center rounded-full text-[7.5px] font-bold bg-slate-100 text-slate-500 border-2 border-white dark:bg-neutral-800 dark:text-slate-400 dark:border-[#171717] font-sans select-none shadow-2xs">
+                                          {stk.initials}
                                         </div>
-                                      </Tooltip>
-                                    );
-                                  })}
-                                </div>
-                                <span className="text-[11px] text-slate-500 dark:text-slate-400 font-sans tabular-nums truncate">
-                                  {decision.stakeholders.length} sign-offs
-                                </span>
+                                        {dotColor && (
+                                          <span className={cn(
+                                            "absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full ring-1 ring-white dark:ring-[#171717]",
+                                            dotColor
+                                          )} />
+                                        )}
+                                      </div>
+                                    </Tooltip>
+                                  );
+                                })}
                               </div>
                             )}
                           </div>
