@@ -682,22 +682,22 @@ export function DecisionTable({
             resourceView === 'both' ? "min-w-[940px]" : "min-w-[780px]"
           )}>
             <thead>
-              <tr className="border-b border-subtle bg-surface-muted/50">
+              <tr className="border-b border-subtle bg-surface-muted/40">
                 <th className={cn(
-                  "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-left",
+                  "py-3.5 px-5 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-muted text-left",
                   resourceView === 'both' ? "w-[34%] min-w-[280px]" : "w-[40%] min-w-[300px]"
                 )}>
                   DECISION & HYPOTHESIS
                 </th>
                 <th className={cn(
-                  "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-left",
+                  "py-3.5 px-5 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-muted text-left",
                   resourceView === 'both' ? "w-[20%] min-w-[180px]" : "w-[24%] min-w-[190px]"
                 )}>
                   OWNER & STAKEHOLDERS
                 </th>
                 {showCapital && (
                   <th className={cn(
-                    "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-left whitespace-nowrap",
+                    "py-3.5 px-5 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-muted text-left whitespace-nowrap",
                     resourceView === 'both' ? "w-[16%] min-w-[150px]" : "w-[20%] min-w-[150px]"
                   )}>
                     CAPITAL INVESTMENT
@@ -705,14 +705,14 @@ export function DecisionTable({
                 )}
                 {showTime && (
                   <th className={cn(
-                    "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-left whitespace-nowrap",
+                    "py-3.5 px-5 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-muted text-left whitespace-nowrap",
                     resourceView === 'both' ? "w-[16%] min-w-[150px]" : "w-[20%] min-w-[150px]"
                   )}>
                     TIME INVESTMENT
                   </th>
                 )}
                 <th className={cn(
-                  "py-3 px-4 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-primary text-right whitespace-nowrap",
+                  "py-3.5 px-5 font-sans text-[11px] font-semibold uppercase tracking-wider text-content-muted text-right whitespace-nowrap",
                   resourceView === 'both' ? "w-[14%] min-w-[140px]" : "w-[16%] min-w-[140px]"
                 )}>
                   STATUS
@@ -755,10 +755,10 @@ export function DecisionTable({
                     >
                       {/* Column 1: Title, Hypothesis & Versioning Badges */}
                       <td className={cn(
-                        "py-3.5 px-4 align-middle border-l-4 transition-all",
+                        "py-5 px-5 align-middle border-l-4 transition-all",
                         isSelected ? "border-l-blue-600" : "border-l-transparent"
                       )}>
-                        <div className="flex items-center gap-2 text-xs flex-wrap">
+                        <div className="flex items-center gap-2.5 text-xs flex-wrap mb-2">
                           <span className="font-mono font-medium tracking-normal text-content-faint text-xs tabular-nums">
                             {decision.id}
                           </span>
@@ -798,20 +798,20 @@ export function DecisionTable({
                             <span>{decision.category}</span>
                           </span>
                         </div>
-                        <div className="font-semibold text-content-primary text-sm tracking-tight mt-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1 font-sans">
+                        <div className="font-semibold text-content-primary text-[14px] sm:text-[15px] tracking-tight leading-snug mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1 font-sans">
                           {decision.title}
                         </div>
-                        <p className="text-content-secondary text-xs line-clamp-1 mt-0.5 font-normal leading-normal font-sans">
+                        <p className="text-content-secondary text-xs line-clamp-2 font-normal leading-relaxed font-sans max-w-xl">
                           {decision.hypothesis}
                         </p>
                       </td>
 
                       {/* Column 2: Owner & Stakeholders */}
-                      <td className="py-3.5 px-4 align-middle">
-                        <div className="flex items-start gap-2.5">
+                      <td className="py-5 px-5 align-middle">
+                        <div className="flex items-start gap-3">
                           {/* Main Owner Profile Avatar */}
                           <div className={cn(
-                            "flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-bold shrink-0 font-sans mt-0.5",
+                            "flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold shrink-0 font-sans mt-0.5 shadow-2xs",
                             getDepartmentAvatarStyle(decision.owner.role, decision.category)
                           )}>
                             {decision.owner.initials || getInitials(decision.owner.name)}
@@ -827,7 +827,7 @@ export function DecisionTable({
 
                             {/* Stakeholders mini-avatars cluster (spread out, borderless, with tooltips) */}
                             {decision.stakeholders && decision.stakeholders.length > 0 && (
-                              <div className="flex items-center gap-1.5 mt-1.5">
+                              <div className="flex items-center gap-2 mt-2.5">
                                 {decision.stakeholders.map((stk) => {
                                   const dotColor = 
                                     stk.stance === 'dissent' ? 'bg-red-500' :
@@ -847,7 +847,7 @@ export function DecisionTable({
                                         className="relative inline-flex items-center justify-center cursor-pointer"
                                         title={`${stk.name} (${stk.role})`}
                                       >
-                                        <div className="flex h-5 w-5 items-center justify-center rounded-full text-[9px] font-bold bg-surface-muted text-content-secondary font-sans select-none hover:bg-surface-hover hover:text-content-primary transition-colors shadow-2xs">
+                                        <div className="flex h-5.5 w-5.5 items-center justify-center rounded-full text-[9px] font-bold bg-surface-muted text-content-secondary font-sans select-none hover:bg-surface-hover hover:text-content-primary transition-colors shadow-2xs">
                                           {stk.initials}
                                         </div>
                                         {dotColor && (
@@ -868,7 +868,7 @@ export function DecisionTable({
 
                       {/* Column 3: Capital Investment */}
                       {showCapital && (
-                        <td className="py-3.5 px-4 text-left whitespace-nowrap align-middle">
+                        <td className="py-5 px-5 text-left whitespace-nowrap align-middle">
                           {hasDrift && decision.actuals ? (
                             <div className="flex flex-col text-left font-sans">
                               {/* Strikethrough Original Baseline */}
@@ -876,7 +876,7 @@ export function DecisionTable({
                                 {formatCurrency(decision.originalEstimates.capitalAtRisk)} (Orig)
                               </span>
                               {/* Actual or Amended Value */}
-                              <div className="flex items-baseline gap-1 mt-0.5">
+                              <div className="flex items-baseline gap-1 mt-1">
                                 <span className="font-semibold text-content-primary text-sm tabular-nums">
                                   {formatCurrency(decision.actuals.actualCapital)}
                                 </span>
@@ -884,7 +884,7 @@ export function DecisionTable({
                                   ({decision.version?.toLowerCase().includes('amended') && !isOverdue ? 'Amended' : 'Actual'})
                                 </span>
                               </div>
-                              <div className="text-xs text-content-muted mt-0.5 tabular-nums">
+                              <div className="text-xs text-content-muted mt-1 tabular-nums">
                                 {decision.actuals.actualPaybackMonths}mo payback
                               </div>
                             </div>
@@ -893,7 +893,7 @@ export function DecisionTable({
                               <div className="font-semibold text-content-primary text-sm tabular-nums">
                                 {formatCurrency(decision.originalEstimates.capitalAtRisk)}
                               </div>
-                              <div className="text-xs text-content-muted mt-0.5 tabular-nums">
+                              <div className="text-xs text-content-muted mt-1 tabular-nums">
                                 {decision.originalEstimates.expectedPaybackMonths}mo payback
                               </div>
                             </div>
@@ -903,7 +903,7 @@ export function DecisionTable({
 
                       {/* Column 4: Time Investment */}
                       {showTime && (
-                        <td className="py-3.5 px-4 text-left whitespace-nowrap align-middle">
+                        <td className="py-5 px-5 text-left whitespace-nowrap align-middle">
                           {hasDrift && decision.actuals && isOverdue ? (
                             <div className="flex flex-col text-left font-sans">
                               {/* Strikethrough Original Horizon */}
@@ -911,7 +911,7 @@ export function DecisionTable({
                                 {decision.originalEstimates.expectedPaybackMonths}mo Horizon (Orig)
                               </span>
                               {/* Actual Time with Tag */}
-                              <div className="flex items-baseline gap-1 mt-0.5">
+                              <div className="flex items-baseline gap-1 mt-1">
                                 <span className="font-semibold text-content-primary text-sm tabular-nums">
                                   {decision.actuals.actualPaybackMonths}mo Horizon
                                 </span>
@@ -919,7 +919,7 @@ export function DecisionTable({
                                   (Actual)
                                 </span>
                               </div>
-                              <div className="text-xs text-content-muted mt-0.5 tabular-nums truncate">
+                              <div className="text-xs text-content-muted mt-1 tabular-nums truncate">
                                 Target: {formatDate(decision.targetReviewDate)}
                               </div>
                             </div>
@@ -928,7 +928,7 @@ export function DecisionTable({
                               <div className="font-semibold text-content-primary text-sm tabular-nums">
                                 {decision.originalEstimates.expectedPaybackMonths}mo Horizon
                               </div>
-                              <div className="text-xs text-content-muted mt-0.5 tabular-nums truncate">
+                              <div className="text-xs text-content-muted mt-1 tabular-nums truncate">
                                 Target: {formatDate(decision.targetReviewDate)}
                               </div>
                             </div>
@@ -937,14 +937,14 @@ export function DecisionTable({
                       )}
 
                       {/* Column 5: Status (Right-Aligned with single status pill and clean secondary delay subtext) */}
-                      <td className="py-3.5 px-4 text-right whitespace-nowrap align-middle">
+                      <td className="py-5 px-5 text-right whitespace-nowrap align-middle">
                         <div className="inline-flex flex-col items-center">
                           <Badge status={decision.status}>
                             {decision.status}
                           </Badge>
                           {isOverdue && (
                             <Tooltip content={`Breached 6-month retrospective SLA by ${daysOverdue} days`}>
-                              <span className="text-xs font-medium text-status-overdue-text dark:text-rose-400 tabular-nums font-sans mt-1 block select-none cursor-default">
+                              <span className="text-xs font-medium text-status-overdue-text dark:text-rose-400 tabular-nums font-sans mt-1.5 block select-none cursor-default">
                                 +{daysOverdue}d Delay
                               </span>
                             </Tooltip>

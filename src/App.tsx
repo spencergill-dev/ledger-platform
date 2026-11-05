@@ -5,12 +5,13 @@ import { Header } from './components/layout/Header';
 import { StatCards } from './components/dashboard/StatCards';
 import { RecentInsightsCard } from './components/dashboard/RecentInsightsCard';
 import { DecisionTable } from './components/dashboard/DecisionTable';
+import { DecisionMemoryTree } from './components/dashboard/DecisionMemoryTree';
 import { NewDecisionModal } from './components/modals/NewDecisionModal';
 import { DecisionSidePanel } from './components/drawer/DecisionSidePanel';
 import { DecisionDeepDiveModal } from './components/modals/DecisionDeepDiveModal';
 import { PasswordGate } from './components/auth/PasswordGate';
-import { isPastDate } from './lib/utils';
-import { ShieldCheck } from 'lucide-react';
+import { isPastDate, cn } from './lib/utils';
+import { ShieldCheck, Table2, GitFork } from 'lucide-react';
 
 import { Tooltip } from './components/ui/Tooltip';
 
@@ -24,6 +25,7 @@ export function App() {
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   const [deepDiveDecision, setDeepDiveDecision] = useState<Decision | null>(null);
   const [isDeepDiveOpen, setIsDeepDiveOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'table' | 'tree'>('table');
 
   const handleAddDecision = (newDecision: Decision) => {
     setDecisions((prev) => [newDecision, ...prev]);
@@ -109,19 +111,64 @@ export function App() {
           <RecentInsightsCard />
         </div>
 
-        {/* Main Decisions Ledger Table */}
-        <section className="space-y-3">
-          <div className="flex items-center justify-between">
-            <h2 className="font-mono text-[10px] font-semibold tracking-wider text-content-muted uppercase">
-              STRATEGIC DECISIONS LEDGER ({decisions.length} TRACKED COMMITMENTS)
-            </h2>
+        {/* Main Decisions Ledger Table / Memory Tree */}
+        <section className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 className="font-mono text-[10px] font-semibold tracking-wider text-content-muted uppercase">
+                STRATEGIC DECISIONS LEDGER // INSTITUTIONAL MEMORY ({decisions.length} TRACKED COMMITMENTS)
+              </h2>
+            </div>
+
+            {/* View Mode Switcher: Ledger Table vs Memory Tree */}
+            <div className="inline-flex items-center p-1 rounded-lg bg-surface-muted border border-subtle text-xs select-none shadow-2xs">
+              <button
+                type="button"
+                onClick={() => setViewMode('table')}
+                className={cn(
+                  "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer",
+                  viewMode === 'table'
+                    ? "bg-surface text-content-primary shadow-2xs font-semibold"
+                    : "text-content-muted hover:text-content-primary"
+                )}
+              >
+                <Table2 className="h-3.5 w-3.5" />
+                <span>Ledger Table</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setViewMode('tree')}
+                className={cn(
+                  "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer",
+                  viewMode === 'tree'
+                    ? "bg-surface text-content-primary shadow-2xs font-semibold"
+                    : "text-content-muted hover:text-content-primary"
+                )}
+              >
+                <GitFork className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+                <span>Institutional Memory Tree</span>
+                <span className="ml-0.5 text-[9px] font-mono uppercase px-1.5 py-0.2 rounded bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300 font-semibold">
+                  Map
+                </span>
+              </button>
+            </div>
           </div>
 
-          <DecisionTable 
-            decisions={decisions} 
-            onSelectDecision={handleSelectDecision}
-            selectedDecisionId={isSidePanelOpen ? selectedDecision?.id : null}
-          />
+          {viewMode === 'table' ? (
+            <DecisionTable 
+              decisions={decisions} 
+              onSelectDecision={handleSelectDecision}
+              selectedDecisionId={isSidePanelOpen ? selectedDecision?.id : null}
+            />
+          ) : (
+            <DecisionMemoryTree
+              decisions={decisions}
+              onSelectDecision={handleSelectDecision}
+              onOpenDeepDive={handleOpenDeepDive}
+              selectedDecisionId={isSidePanelOpen ? selectedDecision?.id : null}
+            />
+          )}
         </section>
 
       </main>

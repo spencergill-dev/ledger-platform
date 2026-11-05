@@ -394,6 +394,56 @@ export function DecisionDeepDiveModal({
                       <span className="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">Target Payback: {decision.originalEstimates.expectedPaybackMonths}mo</span>
                     </div>
                   </div>
+
+                  {/* Strategic Lineage & Precedent Chain */}
+                  {(decision.parentDecisionId || (decision.childDecisionIds && decision.childDecisionIds.length > 0)) && (
+                    <div className="p-4 rounded-lg bg-blue-50/60 dark:bg-blue-950/30 border border-blue-200/80 dark:border-blue-900/60 space-y-2.5 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-blue-900 dark:text-blue-200 uppercase font-mono text-[10px] tracking-wider flex items-center gap-1.5">
+                          <GitFork className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+                          <span>INSTITUTIONAL LINEAGE & PRECEDENT CHAIN</span>
+                        </span>
+                        {decision.strategicPillar && (
+                          <span className="text-[10px] font-mono text-blue-700 dark:text-blue-300 font-semibold">
+                            Pillar: {decision.strategicPillar}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-2 text-xs flex-wrap font-sans">
+                        {decision.parentDecisionId && (
+                          <div className="inline-flex items-center gap-1.5 bg-surface px-2.5 py-1 rounded border border-blue-200 dark:border-blue-800 shadow-2xs">
+                            <span className="text-content-faint font-mono text-[10px]">Branched From:</span>
+                            <span className="font-mono font-bold text-content-primary">{decision.parentDecisionId}</span>
+                          </div>
+                        )}
+
+                        {decision.parentDecisionId && <ArrowRight className="h-3.5 w-3.5 text-blue-500" />}
+
+                        <div className="inline-flex items-center gap-1.5 bg-blue-600 text-white px-2.5 py-1 rounded shadow-2xs font-semibold">
+                          <span className="font-mono text-xs">{decision.id} (Current Node)</span>
+                        </div>
+
+                        {decision.childDecisionIds && decision.childDecisionIds.length > 0 && (
+                          <>
+                            <ArrowRight className="h-3.5 w-3.5 text-blue-500" />
+                            <div className="inline-flex items-center gap-1.5 bg-surface px-2.5 py-1 rounded border border-blue-200 dark:border-blue-800 shadow-2xs">
+                              <span className="text-content-faint font-mono text-[10px]">Spawned:</span>
+                              <span className="font-mono font-bold text-content-primary">
+                                {decision.childDecisionIds.join(', ')}
+                              </span>
+                            </div>
+                          </>
+                        )}
+                      </div>
+
+                      {decision.branchedReason && (
+                        <p className="text-xs text-blue-950 dark:text-blue-200 font-sans italic pt-1">
+                          Branch Catalyst: "{decision.branchedReason}"
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* SECTION 1: OVERVIEW & PERFORMANCE TRAJECTORY */}

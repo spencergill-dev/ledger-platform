@@ -15,6 +15,10 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "Review Due",
     targetReviewDate: "2026-08-14", // Retrospective Overdue
     category: "Market Entry",
+    strategicPillar: "Sovereign Cloud & Security",
+    parentDecisionId: "DEC-2026-042",
+    branchedReason: "BaFin & GDPR sovereignty compliance mandate for DACH enterprise expansion",
+    childDecisionIds: ["DEC-2026-074", "DEC-2026-204"],
     hypothesis: "Establishing dedicated Frankfurt and Dublin sovereign data centers for...",
     createdAt: "2025-11-10",
     originalEstimates: {
@@ -113,6 +117,8 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "Approved",
     targetReviewDate: "2027-03-31",
     category: "Vendor Migration",
+    strategicPillar: "Revenue Engine & Commercial Platform",
+    childDecisionIds: ["DEC-2026-112"],
     hypothesis: "Collapsing fragmented CRM seating into unified platform.",
     createdAt: "2026-10-02",
     originalEstimates: {
@@ -188,6 +194,10 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "In Progress",
     targetReviewDate: "2026-09-29",
     category: "Infrastructure",
+    strategicPillar: "Sovereign Cloud & Security",
+    parentDecisionId: "DEC-2026-089",
+    branchedReason: "Mitigate projected $60k/mo Datadog egress costs across sovereign EU enclaves",
+    childDecisionIds: ["DEC-2026-172"],
     hypothesis: "Migrating from managed Datadog APM to self-hosted ClickHouse.",
     createdAt: "2026-01-18",
     originalEstimates: {
@@ -278,6 +288,10 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "In Progress",
     targetReviewDate: "2027-02-28",
     category: "Product Core",
+    strategicPillar: "Revenue Engine & Commercial Platform",
+    parentDecisionId: "DEC-2026-104",
+    branchedReason: "CRM consolidation revealed critical need for usage-based metering to capture expansion revenue",
+    childDecisionIds: ["DEC-2026-225", "DEC-2026-240"],
     hypothesis: "Replacing fixed subscription tiers with high-precision idempotency token metering will unlock enterprise expansion revenue and curb resource hogging by 40%.",
     createdAt: "2026-08-20",
     originalEstimates: {
@@ -348,6 +362,8 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "Reviewed",
     targetReviewDate: "2026-06-15",
     category: "Capital Allocation",
+    strategicPillar: "Sovereign Cloud & Security",
+    childDecisionIds: ["DEC-2026-089"],
     hypothesis: "Achieving FedRAMP moderate sponsorship will qualify us for multi-million federal agency procurement deals previously blocked by security audit requirements.",
     createdAt: "2025-09-01",
     originalEstimates: {
@@ -428,6 +444,8 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "Review Due",
     targetReviewDate: "2026-10-15", // Retrospective Overdue
     category: "Capital Allocation",
+    strategicPillar: "Frontier AI & Autonomous Systems",
+    childDecisionIds: ["DEC-2026-155"],
     hypothesis: "Acquiring the 4-person IndexAI engineering core and their distributed HNSW algorithm accelerates our hybrid search delivery by 14 months.",
     createdAt: "2026-02-14",
     originalEstimates: {
@@ -513,6 +531,10 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "In Progress",
     targetReviewDate: "2027-01-15",
     category: "AI & Machine Learning",
+    strategicPillar: "Frontier AI & Autonomous Systems",
+    parentDecisionId: "DEC-2026-120",
+    branchedReason: "IndexAI vector core unlocked capability to build dedicated on-prem fine-tuning cluster",
+    childDecisionIds: ["DEC-2026-260"],
     hypothesis: "Deploying on-premise H100 clusters for domain-specific model fine-tuning cuts inference token costs by 68% vs. public APIs while guaranteeing absolute customer data air-gapping.",
     createdAt: "2026-03-01",
     originalEstimates: {
@@ -591,6 +613,9 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "Approved",
     targetReviewDate: "2027-04-30",
     category: "Security & Zero Trust",
+    strategicPillar: "Sovereign Cloud & Security",
+    parentDecisionId: "DEC-2026-074",
+    branchedReason: "Enforce Zero Trust boundary for global contractor access into self-hosted telemetry",
     hypothesis: "Replacing legacy OpenVPN concentrators with Cloudflare Zero Trust and mandatory FIDO2 WebAuthn tokens will eliminate credential replay attack vectors and reduce contractor provisioning time from 4 days to 90 minutes.",
     createdAt: "2026-08-10",
     originalEstimates: {
@@ -661,6 +686,9 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "Review Due",
     targetReviewDate: "2026-09-12", // Retrospective Overdue
     category: "Infrastructure",
+    strategicPillar: "Sovereign Cloud & Security",
+    parentDecisionId: "DEC-2026-089",
+    branchedReason: "Dual-region active-active database sharding required for Frankfurt-Dublin failover",
     hypothesis: "Sharding the core ledger from single-region Aurora to distributed multi-region CockroachDB clusters will guarantee 99.999% SLA uptime and deliver sub-50ms p99 read latency globally.",
     createdAt: "2025-10-01",
     originalEstimates: {
@@ -754,6 +782,9 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "Reviewed",
     targetReviewDate: "2026-07-20",
     category: "Product Core",
+    strategicPillar: "Revenue Engine & Commercial Platform",
+    parentDecisionId: "DEC-2026-112",
+    branchedReason: "Unify billing telemetry and customer entitlements behind a federated GraphQL schema",
     hypothesis: "Unifying 14 isolated REST APIs under an Apollo Federation GraphQL gateway will accelerate product squad velocity by 40% and establish a self-serve API developer platform generating $1.8M ARR.",
     createdAt: "2025-11-20",
     originalEstimates: {
@@ -841,6 +872,9 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "In Progress",
     targetReviewDate: "2027-02-15",
     category: "Product Core",
+    strategicPillar: "Revenue Engine & Commercial Platform",
+    parentDecisionId: "DEC-2026-112",
+    branchedReason: "Leverage new token metering engine to power friction-free 14-day reverse trial sandbox",
     hypothesis: "Replacing mandatory sales qualification calls with a 14-day reverse-trial sandbox (all enterprise governance features pre-unlocked) will 3x visitor-to-paid conversion and reduce mid-market CAC by 45%.",
     createdAt: "2026-08-01",
     originalEstimates: {
@@ -911,6 +945,9 @@ export const MOCK_DECISIONS: Decision[] = [
     status: "Approved",
     targetReviewDate: "2027-05-15",
     category: "Infrastructure",
+    strategicPillar: "Frontier AI & Autonomous Systems",
+    parentDecisionId: "DEC-2026-155",
+    branchedReason: "Customer demand for deploying fine-tuned models onto offline edge devices in remote logistics hubs",
     hypothesis: "Developing an embedded SQLite CRDT edge synchronization SDK for field devices will unlock $4.5M in enterprise logistics tenders requiring 100% offline operational continuity in remote ports and warehouses.",
     createdAt: "2026-09-01",
     originalEstimates: {

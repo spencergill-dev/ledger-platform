@@ -91,6 +91,12 @@ export interface Decision {
   createdAt: string;
   alternativesConsidered?: AlternativeConsidered[];
   retrospectiveSnapshot?: RetrospectiveSnapshot;
+
+  // Institutional Memory & Lineage Tree Extensions
+  parentDecisionId?: string; // Decision this branched off of
+  branchedReason?: string; // The strategic catalyst / reason for branching
+  childDecisionIds?: string[]; // Downstream decisions spawned from this commitment
+  strategicPillar?: string; // Strategic grouping pillar for institutional tree
 }
 
 export interface RetrospectiveInsight {
